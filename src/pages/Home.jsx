@@ -52,13 +52,37 @@ const Home = () => {
                 <div className="flex flex-wrap gap-6 pt-4">
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center">
-                      <span className="text-white font-praise text-xl">📍</span>
+                      <svg
+                        className="w-6 h-6 text-white"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M19.5 10.5c0 7.5-7.5 11.25-7.5 11.25S4.5 18 4.5 10.5a7.5 7.5 0 1115 0z" />
+                        <path d="M12 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" />
+                      </svg>
                     </div>
                     <span className="font-poppins font-semibold text-black">Santa Fe Capital</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center">
-                      <span className="text-white font-praise text-xl">📩</span>
+                      <svg
+                        className="w-6 h-6 text-white"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M3.75 6.75h16.5A1.75 1.75 0 0122 8.5v7a1.75 1.75 0 01-1.75 1.75H3.75A1.75 1.75 0 012 15.5v-7A1.75 1.75 0 013.75 6.75z" />
+                        <path d="M3 8l9 6 9-6" />
+                      </svg>
                     </div>
                     <span className="font-poppins font-semibold text-black">Pedidos con anticipación</span>
                   </div>

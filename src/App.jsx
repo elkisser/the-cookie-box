@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './firebase/config';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import AdminLogin from './pages/AdminLogin';
@@ -87,8 +88,9 @@ function App() {
             path="/products" 
             element={<Products addToCart={addToCart} />} 
           />
+          {/* Nueva ruta del panel de admin */}
           <Route 
-            path="/admin" 
+            path="/mrcookie" 
             element={
               user ? (
                 <AdminDashboard />
@@ -97,32 +99,12 @@ function App() {
               )
             } 
           />
+          {/* Redirección para compatibilidad desde /admin */}
+          <Route path="/admin" element={<Navigate to="/mrcookie" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
 
-        {/* Footer */}
-        <footer className="bg-black text-white py-8">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <h3 className="font-praise text-3xl mb-4">The Cookie Box</h3>
-            <p className="font-poppins mb-4">Las mejores cookies artesanales de Santa Fe 🍪✨</p>
-            
-            <div className="flex justify-center space-x-6 mb-4">
-              <a 
-                href="https://www.instagram.com/thecookiebox.sf/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="hover:text-gray-300 transition-colors"
-              >
-                Instagram
-              </a>
-              <span>📍 Santa Fe Capital</span>
-            </div>
-            
-            <p className="font-poppins text-sm text-gray-400">
-              © 2024 The Cookie Box. Todos los derechos reservados.
-            </p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </Router>
   );

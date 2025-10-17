@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="The Cookie Box icon">
+  <defs>
+    <style>
+      .bg { fill: #000; }
+      .fg { fill: #fff; }
+      .ring { fill: none; stroke: #fff; stroke-opacity: .12; stroke-width: 2; }
+    </style>
+    <!-- Máscara para el mordisco -->
+    <mask id="bite-mask">
+      <!-- Fondo visible -->
+      <rect x="0" y="0" width="64" height="64" fill="#fff"/>
+      <!-- Zonas negras = recortes (mordiscos) -->
+      <circle cx="44" cy="20" r="5" fill="#000"/>
+      <circle cx="48" cy="26" r="4.5" fill="#000"/>
+      <circle cx="44" cy="32" r="4" fill="#000"/>
+    </mask>
+  </defs>
+
+  <!-- Fondo circular negro -->
+  <circle class="bg" cx="32" cy="32" r="32" />
+  <!-- Anillo sutil para dar relieve -->
+  <circle class="ring" cx="32" cy="32" r="30" />
+
+  <!-- Cookie centrada con mordisco usando máscara -->
+  <g>
+    <circle class="fg" cx="32" cy="32" r="18" mask="url(#bite-mask)" />
+    <!-- Chips de chocolate (negros) -->
+    <circle class="bg" cx="26" cy="24" r="2"/>
+    <circle class="bg" cx="36" cy="23" r="1.8"/>
+    <circle class="bg" cx="30" cy="32" r="2.2"/>
+    <circle class="bg" cx="38" cy="31" r="1.6"/>
+    <circle class="bg" cx="28" cy="39" r="1.8"/>
+    <circle class="bg" cx="36" cy="38" r="2"/>
+  </g>
+</svg>
+

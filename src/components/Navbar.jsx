@@ -25,21 +25,15 @@ const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
             <div className="hidden md:flex items-center space-x-8">
               <Link 
                 to="/" 
-                className="text-gray-700 hover:text-black font-medium transition-colors duration-200"
+                className="relative text-gray-700 hover:text-black font-medium transition-colors duration-200 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1.5 after:h-[2px] after:bg-black after:w-0 hover:after:w-full after:transition-all after:duration-300"
               >
                 Inicio
               </Link>
               <Link 
                 to="/products" 
-                className="text-gray-700 hover:text-black font-medium transition-colors duration-200"
+                className="relative text-gray-700 hover:text-black font-medium transition-colors duration-200 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:-bottom-1.5 after:h-[2px] after:bg-black after:w-0 hover:after:w-full after:transition-all after:duration-300"
               >
                 Productos
-              </Link>
-              <Link 
-                to="/admin" 
-                className="text-gray-700 hover:text-black font-medium transition-colors duration-200"
-              >
-                Admin
               </Link>
               
               {/* Cart Button */}
@@ -97,21 +91,21 @@ const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
               <div className="flex flex-col space-y-4">
                 <Link 
                   to="/" 
-                  className="text-gray-700 hover:text-black font-medium py-2"
+                  className="relative text-gray-700 hover:text-black font-medium py-2 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full after:transition-all after:duration-300"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Inicio
                 </Link>
                 <Link 
                   to="/products" 
-                  className="text-gray-700 hover:text-black font-medium py-2"
+                  className="relative text-gray-700 hover:text-black font-medium py-2 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full after:transition-all after:duration-300"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Productos
                 </Link>
                 <Link 
-                  to="/admin" 
-                  className="text-gray-700 hover:text-black font-medium py-2"
+                  to="/mrcookie" 
+                  className="relative text-gray-700 hover:text-black font-medium py-2 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full after:transition-all after:duration-300"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Admin
