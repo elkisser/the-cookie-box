@@ -1,4 +1,4 @@
-# 🍪 The Cookie Box — Cookies artesanales en Santa Fe
+# 🍪 The Cookie Box
 
 Sitio web de The Cookie Box, emprendimiento de cookies artesanales en Santa Fe Capital. Construido con React + Vite y estilado con Tailwind CSS. Incluye catálogo de productos, carrito, autenticación para panel de administración y contenido optimizado para SEO básico.
 
