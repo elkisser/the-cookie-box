@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import ProductCard from '../components/ProductCard';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Products = ({ addToCart }) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -10,7 +11,27 @@ const Products = ({ addToCart }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState('all'); // all | cookies | postres
+  const [filter, setFilter] = useState('all');
+  const [currentIconIndex, setCurrentIconIndex] = useState(0);
+
+  // Array de iconos para rotar
+  const rotatingIcons = ['🍪', '🍰', '🎂', '🍞', '🥧', '🧁'];
+
+  // Efecto para rotar iconos cada 3 segundos
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIconIndex((prevIndex) => 
+        prevIndex === rotatingIcons.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Obtener icono actual
+  const getCurrentIcon = () => {
+    return rotatingIcons[currentIconIndex];
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -36,7 +57,7 @@ const Products = ({ addToCart }) => {
   // Leer filtro inicial desde la URL
   useEffect(() => {
     const urlFilter = (searchParams.get('filter') || '').toLowerCase();
-    if (['all', 'cookies', 'postres'].includes(urlFilter)) {
+    if (['all', 'cookies', 'postres', 'tortas', 'budines'].includes(urlFilter)) {
       setFilter(urlFilter);
     }
   }, [searchParams]);
@@ -50,20 +71,69 @@ const Products = ({ addToCart }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
+  // Funciones de filtro mejoradas
   const isCookie = (name = '', description = '') => {
     const text = `${name} ${description}`.toLowerCase();
-    return text.includes('cookie');
+    return text.includes('cookie') || text.includes('galleta');
   };
 
   const isPostre = (name = '', description = '') => {
     const text = `${name} ${description}`.toLowerCase();
-    return text.includes('postre') || text.includes('dessert');
+    return text.includes('postre') || text.includes('dessert') || 
+           text.includes('dulce') || text.includes('postrecito');
+  };
+
+  const isTorta = (name = '', description = '') => {
+    const text = `${name} ${description}`.toLowerCase();
+    return text.includes('torta') || text.includes('cake') || 
+           text.includes('tortita') || text.includes('pastel');
+  };
+
+  const isBudin = (name = '', description = '') => {
+    const text = `${name} ${description}`.toLowerCase();
+    return text.includes('budín') || text.includes('budin') || 
+           text.includes('pudin') || text.includes('pudín');
+  };
+
+  const getProductCategory = (product) => {
+    if (isCookie(product.name, product.description)) return 'cookies';
+    if (isPostre(product.name, product.description)) return 'postres';
+    if (isTorta(product.name, product.description)) return 'tortas';
+    if (isBudin(product.name, product.description)) return 'budines';
+    return 'otros';
   };
 
   const matchesFilter = (product) => {
     if (filter === 'cookies') return isCookie(product.name, product.description);
     if (filter === 'postres') return isPostre(product.name, product.description);
+    if (filter === 'tortas') return isTorta(product.name, product.description);
+    if (filter === 'budines') return isBudin(product.name, product.description);
     return true; // all
+  };
+
+  // Organizar productos por categorías cuando el filtro es "all"
+  const organizeProductsByCategory = (products) => {
+    const categories = {
+      cookies: [],
+      postres: [],
+      tortas: [],
+      budines: [],
+      otros: []
+    };
+
+    products.forEach(product => {
+      const category = getProductCategory(product);
+      categories[category].push(product);
+    });
+
+    // Eliminar categorías vacías
+    Object.keys(categories).forEach(category => {
+      if (categories[category].length === 0) {
+        delete categories[category];
+      }
+    });
+
+    return categories;
   };
 
   const filteredProducts = products
@@ -74,12 +144,22 @@ const Products = ({ addToCart }) => {
       product.description?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+  const productsByCategory = organizeProductsByCategory(filteredProducts);
+
+  const categoryLabels = {
+    cookies: '🍪 Cookies',
+    postres: '🍰 Postres',
+    tortas: '🎂 Tortas',
+    budines: '🍞 Budines',
+    otros: '📦 Otros Productos'
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center py-20">
         <div className="text-center">
           <div className="spinner mx-auto mb-4"></div>
-          <p className="font-poppins text-gray-600">Cargando nuestras deliciosas cookies...</p>
+          <p className="font-poppins text-gray-600">Cargando nuestros deliciosos productos...</p>
         </div>
       </div>
     );
@@ -112,26 +192,28 @@ const Products = ({ addToCart }) => {
         {/* Header */}
         <div className="text-center mb-12 fade-in">
           <h1 className="font-praise text-5xl md:text-6xl text-black mb-6">
-            Nuestras Cookies
+            Nuestros Productos
           </h1>
           <p className="font-poppins text-gray-600 text-lg mb-8 max-w-2xl mx-auto leading-relaxed">
-            Descubre nuestra exquisita selección de cookies artesanales. 
-            Cada una elaborada con ingredientes premium y mucho cariño.
+            Descubre nuestra exquisita selección de productos artesanales. 
+            Cada uno elaborado con ingredientes premium y mucho cariño.
           </p>
           
           {/* Filtros + Búsqueda */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 max-w-3xl mx-auto">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 max-w-4xl mx-auto">
             {/* Switch de filtros */}
-            <div className="inline-flex p-1 rounded-2xl border border-gray-200 bg-white shadow-sm">
+            <div className="inline-flex p-1 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
               {[
                 { key: 'all', label: 'Todos' },
                 { key: 'cookies', label: 'Cookies' },
                 { key: 'postres', label: 'Postres' },
+                { key: 'tortas', label: 'Tortas' },
+                { key: 'budines', label: 'Budines' },
               ].map((opt) => (
                 <button
                   key={opt.key}
                   onClick={() => setFilter(opt.key)}
-                  className={`px-4 py-2 rounded-xl font-poppins text-sm transition-all duration-200 ${
+                  className={`px-4 py-2 rounded-xl font-poppins text-sm transition-all duration-200 whitespace-nowrap ${
                     filter === opt.key
                       ? 'bg-black text-white shadow'
                       : 'text-gray-700 hover:bg-gray-100'
@@ -166,37 +248,82 @@ const Products = ({ addToCart }) => {
         {/* Products Grid */}
         {filteredProducts.length === 0 ? (
           <div className="text-center py-20 fade-in">
-            <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <span className="text-4xl">🍪</span>
+            <div className="relative w-32 h-32 bg-gray-100 rounded-full overflow-hidden flex items-center justify-center mx-auto mb-6">
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={currentIconIndex}
+                  className="absolute text-4xl"
+                  initial={{ x: 100, opacity: 0 }}      // entra desde la derecha
+                  animate={{ x: 0, opacity: 1 }}        // aparece centrado
+                  exit={{ x: -100, opacity: 0 }}        // sale hacia la izquierda
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                >
+                  {rotatingIcons[currentIconIndex]}
+                </motion.span>
+              </AnimatePresence>
             </div>
             <h3 className="font-poppins font-semibold text-gray-600 text-xl mb-4">
-              {searchTerm ? 'No encontramos cookies con ese nombre' : 'Aún no hay productos'}
+              {searchTerm 
+                ? `No encontramos ${filter === 'all' ? 'productos' : filter} con ese nombre`
+                : products.length === 0 
+                  ? 'Aún no hay productos' 
+                  : `No hay ${filter === 'all' ? 'productos activos' : filter} disponibles`
+              }
             </h3>
             <p className="font-poppins text-gray-500 max-w-md mx-auto">
               {searchTerm 
-                ? 'Intenta con otro nombre o explora todas nuestras cookies disponibles.'
-                : 'Agrega productos desde el panel de administración.'
+                ? 'Intenta con otro nombre o explora todos nuestros productos disponibles.'
+                : products.length === 0
+                  ? 'Agrega productos desde el panel de administración.'
+                  : `Prueba con otra categoría o revisa nuestros ${filter === 'all' ? 'productos' : 'otros productos'} disponibles.`
               }
             </p>
-            {searchTerm && (
+            {(searchTerm || (products.length > 0 && filteredProducts.length === 0)) && (
               <button
-                onClick={() => setSearchTerm('')}
+                onClick={() => {
+                  setSearchTerm('');
+                  if (products.length > 0) setFilter('all');
+                }}
                 className="btn-primary mt-6"
               >
-                Ver Todas las Cookies
+                {products.length > 0 ? 'Ver Todos los Productos' : 'Recargar'}
               </button>
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map(product => (
-              <div key={product.id} className="animate-stagger">
-                <ProductCard 
-                  product={product} 
-                  onAddToCart={addToCart}
-                />
+          <div className="space-y-12">
+            {/* Cuando el filtro es "all", mostrar por categorías */}
+            {filter === 'all' ? (
+              Object.keys(productsByCategory).map(category => (
+                <div key={category} className="fade-in">
+                  <h2 className="font-poppins font-semibold text-2xl text-gray-800 mb-6 border-b pb-2">
+                    {categoryLabels[category]}
+                  </h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {productsByCategory[category].map((product, index) => (
+                      <div key={product.id} className="animate-stagger" style={{ animationDelay: `${index * 100}ms` }}>
+                        <ProductCard 
+                          product={product} 
+                          onAddToCart={addToCart}
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))
+            ) : (
+              /* Cuando hay un filtro específico, mostrar todos juntos */
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredProducts.map((product, index) => (
+                  <div key={product.id} className="animate-stagger" style={{ animationDelay: `${index * 100}ms` }}>
+                    <ProductCard 
+                      product={product} 
+                      onAddToCart={addToCart}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
+            )}
           </div>
         )}
 
