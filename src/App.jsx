@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './firebase/config';
 import Navbar from './components/Navbar';
@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import AdminLogin from './pages/AdminLogin';
+import Logout from './pages/Logout';
 import AdminDashboard from './pages/AdminDashboard';
 
 function App() {
@@ -73,22 +74,20 @@ function App() {
     );
   }
 
-  return (
-    <Router>
-      <div className="App">
+  const AppContent = () => {
+    const location = useLocation();
+
+    return (
+      <div key={location.pathname} className="App animate-page">
         <Navbar 
           cartItems={cartItems}
           updateQuantity={updateQuantity}
           removeFromCart={removeFromCart}
         />
-        
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route 
-            path="/products" 
-            element={<Products addToCart={addToCart} />} 
-          />
-          {/* Nueva ruta del panel de admin */}
+          <Route path="/products" element={<Products addToCart={addToCart} />} />
+          <Route path="/logout" element={<Logout />} />
           <Route 
             path="/mrcookie" 
             element={
@@ -99,13 +98,17 @@ function App() {
               )
             } 
           />
-          {/* Redirección para compatibilidad desde /admin */}
           <Route path="/admin" element={<Navigate to="/mrcookie" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-
         <Footer />
       </div>
+    );
+  };
+
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }

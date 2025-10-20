@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import ProductCard from '../components/ProductCard';
 
 const Products = ({ addToCart }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [filter, setFilter] = useState('all'); // all | cookies | postres
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -30,10 +33,46 @@ const Products = ({ addToCart }) => {
     fetchProducts();
   }, []);
 
-  const filteredProducts = products.filter(product =>
-    product.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.description?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Leer filtro inicial desde la URL
+  useEffect(() => {
+    const urlFilter = (searchParams.get('filter') || '').toLowerCase();
+    if (['all', 'cookies', 'postres'].includes(urlFilter)) {
+      setFilter(urlFilter);
+    }
+  }, [searchParams]);
+
+  // Escribir filtro en la URL cuando cambie
+  useEffect(() => {
+    const current = Object.fromEntries([...searchParams.entries()]);
+    if (filter && current.filter !== filter) {
+      setSearchParams({ ...current, filter });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter]);
+
+  const isCookie = (name = '', description = '') => {
+    const text = `${name} ${description}`.toLowerCase();
+    return text.includes('cookie');
+  };
+
+  const isPostre = (name = '', description = '') => {
+    const text = `${name} ${description}`.toLowerCase();
+    return text.includes('postre') || text.includes('dessert');
+  };
+
+  const matchesFilter = (product) => {
+    if (filter === 'cookies') return isCookie(product.name, product.description);
+    if (filter === 'postres') return isPostre(product.name, product.description);
+    return true; // all
+  };
+
+  const filteredProducts = products
+    .filter(p => p.isActive !== false) // Solo productos activos
+    .filter(p => matchesFilter(p))
+    .filter(product =>
+      product.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   if (loading) {
     return (
@@ -80,15 +119,37 @@ const Products = ({ addToCart }) => {
             Cada una elaborada con ingredientes premium y mucho cariño.
           </p>
           
-          {/* Search Bar */}
-          <div className="max-w-md mx-auto">
-            <div className="relative">
+          {/* Filtros + Búsqueda */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 max-w-3xl mx-auto">
+            {/* Switch de filtros */}
+            <div className="inline-flex p-1 rounded-2xl border border-gray-200 bg-white shadow-sm">
+              {[
+                { key: 'all', label: 'Todos' },
+                { key: 'cookies', label: 'Cookies' },
+                { key: 'postres', label: 'Postres' },
+              ].map((opt) => (
+                <button
+                  key={opt.key}
+                  onClick={() => setFilter(opt.key)}
+                  className={`px-4 py-2 rounded-xl font-poppins text-sm transition-all duration-200 ${
+                    filter === opt.key
+                      ? 'bg-black text-white shadow'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Search Bar */}
+            <div className="relative w-full md:max-w-xs">
               <input
                 type="text"
-                placeholder="Buscar cookies..."
+                placeholder="Buscar productos..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-6 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent font-poppins"
+                className="w-full px-6 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent font-poppins"
               />
               <svg 
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" 
@@ -127,13 +188,14 @@ const Products = ({ addToCart }) => {
             )}
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 fade-in">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredProducts.map(product => (
-              <ProductCard 
-                key={product.id} 
-                product={product} 
-                onAddToCart={addToCart}
-              />
+              <div key={product.id} className="animate-stagger">
+                <ProductCard 
+                  product={product} 
+                  onAddToCart={addToCart}
+                />
+              </div>
             ))}
           </div>
         )}

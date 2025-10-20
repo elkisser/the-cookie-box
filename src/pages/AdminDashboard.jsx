@@ -702,8 +702,7 @@ const ProductList = ({ products, loading, onEdit, onDelete, onToggleStatus, titl
           {products.map((product, index) => (
             <div 
               key={product.id} 
-              className="border border-gray-200/50 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 group bg-gradient-to-br from-white to-gray-50/50 backdrop-blur-sm animate-fade-in"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="border border-gray-200/50 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 group bg-gradient-to-br from-white to-gray-50/50 backdrop-blur-sm animate-stagger"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-6 flex-1">
