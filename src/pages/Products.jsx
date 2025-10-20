@@ -248,15 +248,22 @@ const Products = ({ addToCart }) => {
         {/* Products Grid */}
         {filteredProducts.length === 0 ? (
           <div className="text-center py-20 fade-in">
-            <div className="relative w-32 h-32 bg-gray-100 rounded-full overflow-hidden flex items-center justify-center mx-auto mb-6">
+            <div className="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 relative overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.span
                   key={currentIconIndex}
                   className="absolute text-4xl"
-                  initial={{ x: 100, opacity: 0 }}      // entra desde la derecha
-                  animate={{ x: 0, opacity: 1 }}        // aparece centrado
-                  exit={{ x: -100, opacity: 0 }}        // sale hacia la izquierda
-                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  initial={{ x: 100, opacity: 0 }}
+                  animate={{ 
+                    x: [100, 0, -10, 0],  // entra, rebota un poco y se estabiliza
+                    opacity: 1 
+                  }}
+                  exit={{ x: -100, opacity: 0 }}
+                  transition={{ 
+                    duration: 0.7,
+                    ease: "easeOut",
+                    times: [0, 0.7, 0.9, 1]
+                  }}
                 >
                   {rotatingIcons[currentIconIndex]}
                 </motion.span>
