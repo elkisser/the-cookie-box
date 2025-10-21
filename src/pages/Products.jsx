@@ -254,16 +254,9 @@ const Products = ({ addToCart }) => {
                   key={currentIconIndex}
                   className="absolute text-4xl"
                   initial={{ x: 100, opacity: 0 }}
-                  animate={{ 
-                    x: [100, 0, -10, 0],  // entra, rebota un poco y se estabiliza
-                    opacity: 1 
-                  }}
+                  animate={{ x: 0, opacity: 1 }}
                   exit={{ x: -100, opacity: 0 }}
-                  transition={{ 
-                    duration: 0.7,
-                    ease: "easeOut",
-                    times: [0, 0.7, 0.9, 1]
-                  }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
                 >
                   {rotatingIcons[currentIconIndex]}
                 </motion.span>
