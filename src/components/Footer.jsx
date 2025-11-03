@@ -35,7 +35,19 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 border-t border-gray-200 pt-6 text-center">
-          <p className="font-poppins text-gray-500 text-sm">© {new Date().getFullYear()} The Cookie Box. Todos los derechos reservados.</p>
+          <p className="font-poppins text-gray-500 text-sm">
+            © {new Date().getFullYear()} The Cookie Box. Todos los derechos reservados.
+            <span className="mx-2">•</span>
+            Desarrollado por{' '}
+            <a 
+              href="https://somos-env.netlify.app" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="underline decoration-gray-300 hover:decoration-black text-gray-700 hover:text-black transition-colors"
+            >
+              SoMoS
+            </a>
+          </p>
         </div>
       </div>
     </footer>
