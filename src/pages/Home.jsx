@@ -6,8 +6,24 @@ const Home = () => {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-gray-50 to-white py-20 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-black bg-opacity-5"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+        <div className="absolute inset-0 bg-black bg-opacity-5 z-0"></div>
+        {/* Decorative cookie background */}
+        <div className="cookie-bg" aria-hidden="true">
+          {Array.from({ length: 20 }).map((_, i) => (
+            <span
+              key={i}
+              className="cookie-piece"
+              style={{
+                left: `${(i * 8 + (i % 3) * 3) % 100}%`,
+                animationDuration: `${8 + (i % 2)}s`,
+                animationDelay: `${(i % 7) * 0.7}s`,
+              }}
+            >
+              🍪
+            </span>
+          ))}
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in" style={{ zIndex: 10 }}>
           <h1 className="font-praise text-6xl md:text-8xl lg:text-9xl text-black mb-6 text-shadow">
             The Cookie Box
           </h1>
@@ -162,6 +178,45 @@ const Home = () => {
                 Cada cookie es elaborada artesanalmente con dedicación, pasión y mucho cariño. 
                 Puedes sentir la diferencia en cada mordisco.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Wholesale / Bulk Purchase Section (refined) */}
+      <section className="py-20 lg:py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-black to-gray-900 text-white p-10 md:p-14 shadow-xl">
+            <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/5 blur-2xl" aria-hidden="true"></div>
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div className="text-center md:text-left">
+                <h2 className="font-praise text-5xl lg:text-6xl mb-4">¿Compras por Cantidad?</h2>
+                <p className="font-poppins text-gray-200 text-lg md:text-xl mb-8">
+                  Si sos una panadería, cafetería o querés comprar por mayor, escribinos y
+                  te armamos una propuesta a medida con precios mayoristas.
+                </p>
+                <div className="flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4">
+                  <a
+                    href={`https://wa.me/543425000000?text=${encodeURIComponent('¡Hola! Me interesa comprar por cantidad/por mayor de The Cookie Box.\n\nContame por favor precios mayoristas, cantidades mínimas y tiempos de entrega.\n\n¡Gracias!')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center bg-white text-black px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-[1.02]"
+                  >
+                    Consultar por WhatsApp
+                  </a>
+                  <a
+                    href={`mailto:thecookiebox.sf@gmail.com?subject=${encodeURIComponent('Consulta compras por mayor - The Cookie Box')}&body=${encodeURIComponent('Hola, me gustaría recibir info de compras por mayor (cantidades, precios y tiempos). ¡Gracias!')}`}
+                    className="inline-flex items-center justify-center bg-transparent text-white px-8 py-4 rounded-xl font-semibold border border-white/30 hover:bg-white/10 transition-all duration-300"
+                  >
+                    Escribir por Email
+                  </a>
+                </div>
+              </div>
+              <div className="hidden md:flex items-center justify-center">
+                <div className="w-56 h-56 rounded-2xl bg-white text-black flex items-center justify-center text-7xl shadow-2xl">
+                  🍪
+                </div>
+              </div>
             </div>
           </div>
         </div>

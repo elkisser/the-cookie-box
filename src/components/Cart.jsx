@@ -1,6 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 const Cart = ({ isOpen, onClose, items, updateQuantity, removeFromCart }) => {
+  const [shouldRender, setShouldRender] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+  const ANIMATION_MS = 280;
+
+  useEffect(() => {
+    if (isOpen) {
+      setShouldRender(true);
+      setIsClosing(false);
+    } else if (shouldRender) {
+      // start exit animation
+      setIsClosing(true);
+      const t = setTimeout(() => {
+        setShouldRender(false);
+        setIsClosing(false);
+      }, ANIMATION_MS);
+      return () => clearTimeout(t);
+    }
+  }, [isOpen, shouldRender]);
+
+  const handleClose = () => {
+    // trigger parent close after exit animation so we don't unmount instantly
+    setIsClosing(true);
+    setTimeout(() => {
+      onClose();
+    }, ANIMATION_MS);
+  };
   const total = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   const generateWhatsAppMessage = () => {
@@ -17,17 +43,17 @@ const Cart = ({ isOpen, onClose, items, updateQuantity, removeFromCart }) => {
     return encodeURIComponent(message);
   };
 
-  if (!isOpen) return null;
+  if (!shouldRender) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-end fade-in">
-      <div className="bg-white w-full max-w-md h-full overflow-y-auto cart-slide-in">
+    <div className={`fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-end ${isClosing ? 'fade-out' : 'fade-in'}`} onClick={handleClose}>
+      <div className={`bg-white w-full max-w-md h-full overflow-y-auto ${isClosing ? 'cart-slide-out' : 'cart-slide-in'}`} onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="bg-black text-white p-6">
           <div className="flex justify-between items-center">
             <h2 className="font-praise text-3xl">Mi Pedido</h2>
             <button 
-              onClick={onClose}
+              onClick={handleClose}
               className="text-white hover:text-gray-300 transition-colors p-2 rounded-full hover:bg-white hover:bg-opacity-10"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

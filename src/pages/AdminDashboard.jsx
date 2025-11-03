@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { collection, addDoc, getDocs, doc, deleteDoc, updateDoc, orderBy, query } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../firebase/config';
@@ -23,6 +24,8 @@ const AdminDashboard = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  const navigate = useNavigate();
 
   const fetchProducts = async () => {
     try {
@@ -167,17 +170,37 @@ const AdminDashboard = () => {
         
         {/* Header con animación */}
         <div className="text-center mb-12 animate-fade-in">
-          <div className="flex items-center justify-center mb-4">
+          <div className="flex items-center justify-center mb-4 relative">
             <div className="w-14 h-14 bg-gradient-to-br from-black to-gray-800 rounded-2xl flex items-center justify-center mr-4 shadow-lg transform hover:scale-105 transition-transform duration-300">
               <span className="text-white font-praise text-2xl">🍪</span>
             </div>
             <h1 className="font-praise text-6xl text-black bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">
               Admin Dashboard
             </h1>
+            {/* Logout button (no navbar) */}
+            <button
+              onClick={() => navigate('/logout')}
+              className="absolute right-0 top-1/2 -translate-y-1/2 hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 bg-white shadow-sm hover:bg-gray-100 transition-colors"
+              title="Cerrar sesión"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1"/></svg>
+              <span className="font-poppins text-sm">Salir</span>
+            </button>
           </div>
           <p className="font-poppins text-gray-600 text-lg max-w-2xl mx-auto">
             Gestiona tu catálogo de cookies artesanales
           </p>
+
+          {/* Logout button visible en mobile */}
+          <div className="md:hidden mt-4">
+            <button
+              onClick={() => navigate('/logout')}
+              className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl border border-gray-200 bg-white shadow-sm hover:bg-gray-100 transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1"/></svg>
+              <span className="font-poppins font-medium">Cerrar sesión</span>
+            </button>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-4 gap-8">

@@ -19,6 +19,23 @@ body {
   line-height: 1.6;
 }
 
+/* Fades and slide-in animations used across UI */
+.fade-in {
+  animation: pageFadeIn 250ms ease-out both;
+}
+
+.fade-out {
+  animation: pageFadeIn 220ms ease-out reverse both;
+}
+
+.cart-slide-in {
+  animation: slideInRight 280ms ease-out both;
+}
+
+.cart-slide-out {
+  animation: slideInRight 280ms ease-in reverse both;
+}
+
 /* Clases de utilidad personalizadas */
 .btn-primary {
   background: black;
@@ -169,6 +186,38 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .animate-page {
     animation: none;
+  }
+}
+
+/* Cookie background (falling cookies effect for hero) */
+.cookie-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.cookie-piece {
+  position: absolute;
+  /* posición vertical controlada por la animación */
+  font-size: 32px;
+  opacity: 0.15; /* subtle but visible */
+  animation: cookieFall linear infinite;
+}
+
+@keyframes cookieFall {
+  0% { top: -40px; transform: rotate(0deg); opacity: 0.18; }
+  85% { opacity: 0.12; }
+  100% { top: 100%; transform: rotate(360deg); opacity: 0; } /* llega al fondo del hero */
+}
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .cart-slide-in,
+  .cookie-piece {
+    animation: none !important;
   }
 }
 

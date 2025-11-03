@@ -13,6 +13,7 @@ const Products = ({ addToCart }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState('all');
   const [currentIconIndex, setCurrentIconIndex] = useState(0);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   // Array de iconos para rotar
   const rotatingIcons = ['🍪', '🍰', '🎂', '🍞', '🥧', '🧁'];
@@ -199,10 +200,19 @@ const Products = ({ addToCart }) => {
             Cada uno elaborado con ingredientes premium y mucho cariño.
           </p>
           
-          {/* Filtros + Búsqueda */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4 max-w-4xl mx-auto">
-            {/* Switch de filtros */}
-            <div className="inline-flex p-1 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-x-auto">
+        {/* Filtros + Búsqueda */}
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 max-w-4xl mx-auto">
+          {/* Toggle Mobile */}
+          <button 
+            className="md:hidden w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl border border-gray-200 bg-white shadow-sm"
+            onClick={() => setMobileFiltersOpen(v => !v)}
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h18M6 12h12M10 20h4" /></svg>
+            <span className="font-poppins font-medium">Filtros</span>
+          </button>
+
+          {/* Switch de filtros */}
+          <div className={`inline-flex p-1 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-x-auto w-full md:w-auto ${mobileFiltersOpen ? 'flex' : 'hidden'} md:flex`}>
               {[
                 { key: 'all', label: 'Todos' },
                 { key: 'cookies', label: 'Cookies' },
@@ -225,7 +235,7 @@ const Products = ({ addToCart }) => {
             </div>
 
             {/* Search Bar */}
-            <div className="relative w-full md:max-w-xs">
+          <div className="relative w-full md:max-w-xs">
               <input
                 type="text"
                 placeholder="Buscar productos..."

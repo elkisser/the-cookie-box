@@ -103,13 +103,6 @@ const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
                 >
                   Productos
                 </Link>
-                <Link 
-                  to="/mrcookie" 
-                  className="relative text-gray-700 hover:text-black font-medium py-2 after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-0 after:h-[2px] after:bg-black after:w-0 hover:after:w-full after:transition-all after:duration-300"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Admin
-                </Link>
               </div>
             </div>
           )}
