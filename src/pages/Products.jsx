@@ -284,7 +284,7 @@ const Products = ({ addToCart }) => {
               {searchTerm 
                 ? 'Intenta con otro nombre o explora todos nuestros productos disponibles.'
                 : products.length === 0
-                  ? 'Agrega productos desde el panel de administración.'
+                  ? 'No hay productos a la venta.'
                   : `Prueba con otra categoría o revisa nuestros ${filter === 'all' ? 'productos' : 'otros productos'} disponibles.`
               }
             </p>
