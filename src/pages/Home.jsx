@@ -57,13 +57,12 @@ const Home = () => {
               <h2 className="font-praise text-5xl lg:text-6xl text-black mb-8">Quiénes Somos</h2>
               <div className="space-y-6">
                 <p className="font-poppins text-gray-700 text-lg leading-relaxed">
-                  En <span className="font-semibold text-black">The Cookie Box</span> creamos las cookies más deliciosas y únicas de Santa Fe Capital. 
-                  Cada cookie es elaborada artesanalmente con ingredientes de la más alta calidad 
-                  y mucho amor, garantizando una experiencia única en cada bocado.
+                  En <span className="font-semibold text-black">The Cookie Box</span> hacemos cookies artesanales en Santa Fe Capital. 
+                  Cada cookie se elabora con ingredientes de calidad y dedicación, para disfrutar en cada bocado.
                 </p>
                 <p className="font-poppins text-gray-700 text-lg leading-relaxed">
-                  Nuestra especialidad son las <span className="font-semibold text-black">Crumble Cookies</span>, pero siempre estamos innovando 
-                  con nuevos sabores y texturas que sorprenden a nuestros clientes más exigentes.
+                  Nuestra especialidad son las <span className="font-semibold text-black">Crumble Cookies</span>, y siempre estamos probando 
+                  nuevos sabores y texturas.
                 </p>
                 <div className="flex flex-wrap gap-6 pt-4">
                   <div className="flex items-center space-x-3">
@@ -147,7 +146,7 @@ const Home = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
-              <h3 className="font-poppins font-bold text-black text-xl mb-4">Ingredientes Premium</h3>
+              <h3 className="font-poppins font-bold text-black text-xl mb-4">Ingredientes de calidad</h3>
               <p className="font-poppins text-gray-600 leading-relaxed">
                 Utilizamos solo los mejores ingredientes importados y locales para garantizar 
                 el sabor y calidad excepcional en cada bocado.
@@ -160,10 +159,9 @@ const Home = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="font-poppins font-bold text-black text-xl mb-4">Frescas Siempre</h3>
+              <h3 className="font-poppins font-bold text-black text-xl mb-4">Recién hechas</h3>
               <p className="font-poppins text-gray-600 leading-relaxed">
-                Todas nuestras cookies se hornean el mismo día de la entrega para garantizar 
-                máxima frescura y ese sabor recién horneado que amas.
+                Horneamos el mismo día de la entrega para mantener la frescura y el toque recién horneado.
               </p>
             </div>
             
@@ -227,7 +225,7 @@ const Home = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-praise text-5xl lg:text-6xl mb-6">¿Listo para probarlas?</h2>
           <p className="font-poppins text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Descubre por qué somos las cookies más famosas de Santa Fe. 
+            Conocé nuestras cookies en Santa Fe. 
             Tu momento dulce está a un click de distancia.
           </p>
           <Link

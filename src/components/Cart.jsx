@@ -75,7 +75,7 @@ const Cart = ({ isOpen, onClose, items, updateQuantity, removeFromCart }) => {
                 </svg>
               </div>
               <h3 className="font-poppins font-semibold text-gray-600 text-lg mb-2">Tu carrito está vacío</h3>
-              <p className="text-gray-500">Agrega algunas cookies deliciosas</p>
+              <p className="text-gray-500">Agregá algunas cookies</p>
             </div>
           ) : (
             <>
