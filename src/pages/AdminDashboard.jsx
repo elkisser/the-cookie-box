@@ -166,116 +166,105 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header con animación */}
-        <div className="text-center mb-12 animate-fade-in">
-          <div className="flex items-center justify-center mb-4 relative">
-            <div className="hidden md:flex w-14 h-14 bg-gradient-to-br from-black to-gray-800 rounded-2xl items-center justify-center mr-4 shadow-lg transform hover:scale-105 transition-transform duration-300">
-              <span className="text-white font-praise text-2xl">🍪</span>
+          <div className="text-center mb-12 animate-fade-in">
+            <div className="flex items-center justify-center mb-4 relative">
+              <div className="hidden md:flex w-14 h-14 bg-gradient-to-br from-black to-gray-800 rounded-2xl items-center justify-center mr-4 shadow-lg transform hover:scale-105 transition-transform duration-300">
+                <span className="text-white font-praise text-2xl">🍪</span>
+              </div>
+              <h1 className="font-praise text-6xl text-black bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">
+                Admin Dashboard
+              </h1>
             </div>
-            <h1 className="font-praise text-6xl text-black bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">
-              Admin Dashboard
-            </h1>
-          </div>
-          <p className="font-poppins text-gray-600 text-lg max-w-2xl mx-auto">
-            Gestiona tu catálogo de cookies artesanales
-          </p>
-
-          {/* Logout button visible en mobile */}
-          <div className="md:hidden mt-4">
-            <button
-              onClick={() => navigate('/logout')}
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-2xl border border-gray-200 bg-white shadow-sm hover:bg-gray-100 transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1"/></svg>
-              <span className="font-poppins font-medium">Cerrar sesión</span>
-            </button>
-          </div>
-        </div>
-
-        <div className="grid lg:grid-cols-4 gap-8">
+            <p className="font-poppins text-gray-600 text-lg max-w-2xl mx-auto">
+              Gestiona tu catálogo de cookies artesanales
+            </p>
+          </div>        
+          
+                <div className="grid md:grid-cols-5 lg:grid-cols-7 gap-6 lg:gap-8">
           
           {/* Sidebar mejorado */}
-          <div className="lg:col-span-1">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-6 sticky top-8 border border-white/20">
-              <nav className="space-y-3">
+          <div className="md:col-span-2 lg:col-span-2 order-2 md:order-1">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-6 lg:p-8 sticky top-8 border border-white/20">
+              <nav className="space-y-4">
                 <button
                   onClick={() => setActiveTab('form')}
-                  className={`w-full flex items-center space-x-4 px-5 py-4 rounded-2xl text-left transition-all duration-300 group ${
+                  className={`w-full flex items-center space-x-5 p-6 rounded-2xl text-left transition-all duration-300 group ${
                     activeTab === 'form' 
-                      ? 'bg-gradient-to-r from-black to-gray-800 text-white shadow-lg transform scale-105' 
-                      : 'text-gray-600 hover:bg-white hover:shadow-lg hover:scale-105 border border-transparent hover:border-gray-200'
+                      ? 'bg-gradient-to-r from-black to-gray-800 text-white shadow-lg transform scale-[1.02]' 
+                      : 'text-gray-600 hover:bg-white hover:shadow-lg hover:scale-[1.02] border border-transparent hover:border-gray-200'
                   }`}
                 >
-                  <div className={`p-2 rounded-lg transition-colors ${
+                  <div className={`p-3 rounded-xl transition-colors ${
                     activeTab === 'form' ? 'bg-white/20' : 'bg-gray-100 group-hover:bg-black group-hover:text-white'
                   }`}>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
                   </div>
-                  <span className="font-semibold">{editingProduct ? 'Editar Producto' : 'Agregar Producto'}</span>
+                  <span className="font-semibold text-lg">{editingProduct ? 'Editar Producto' : 'Agregar Producto'}</span>
                 </button>
                 
                 <button
                   onClick={() => setActiveTab('active')}
-                  className={`w-full flex items-center space-x-4 px-5 py-4 rounded-2xl text-left transition-all duration-300 group ${
+                  className={`w-full flex items-center space-x-5 p-6 rounded-2xl text-left transition-all duration-300 group ${
                     activeTab === 'active' 
-                      ? 'bg-gradient-to-r from-black to-gray-800 text-white shadow-lg transform scale-105' 
-                      : 'text-gray-600 hover:bg-white hover:shadow-lg hover:scale-105 border border-transparent hover:border-gray-200'
+                      ? 'bg-gradient-to-r from-black to-gray-800 text-white shadow-lg transform scale-[1.02]' 
+                      : 'text-gray-600 hover:bg-white hover:shadow-lg hover:scale-[1.02] border border-transparent hover:border-gray-200'
                   }`}
                 >
-                  <div className={`p-2 rounded-lg transition-colors ${
+                  <div className={`p-3 rounded-xl transition-colors ${
                     activeTab === 'active' ? 'bg-white/20' : 'bg-gray-100 group-hover:bg-black group-hover:text-white'
                   }`}>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
                   <div>
-                    <span className="font-semibold block">Activos</span>
-                    <span className="text-sm opacity-75">{activeProducts.length} productos</span>
+                    <span className="font-semibold text-lg block mb-1">Activos</span>
+                    <span className="text-sm opacity-75 bg-black/10 px-3 py-1 rounded-full">{activeProducts.length} productos</span>
                   </div>
                 </button>
                 
                 <button
                   onClick={() => setActiveTab('inactive')}
-                  className={`w-full flex items-center space-x-4 px-5 py-4 rounded-2xl text-left transition-all duration-300 group ${
+                  className={`w-full flex items-center space-x-5 p-6 rounded-2xl text-left transition-all duration-300 group ${
                     activeTab === 'inactive' 
-                      ? 'bg-gradient-to-r from-black to-gray-800 text-white shadow-lg transform scale-105' 
-                      : 'text-gray-600 hover:bg-white hover:shadow-lg hover:scale-105 border border-transparent hover:border-gray-200'
+                      ? 'bg-gradient-to-r from-black to-gray-800 text-white shadow-lg transform scale-[1.02]' 
+                      : 'text-gray-600 hover:bg-white hover:shadow-lg hover:scale-[1.02] border border-transparent hover:border-gray-200'
                   }`}
                 >
-                  <div className={`p-2 rounded-lg transition-colors ${
+                  <div className={`p-3 rounded-xl transition-colors ${
                     activeTab === 'inactive' ? 'bg-white/20' : 'bg-gray-100 group-hover:bg-black group-hover:text-white'
                   }`}>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
                   <div>
-                    <span className="font-semibold block">Ocultos</span>
-                    <span className="text-sm opacity-75">{inactiveProducts.length} productos</span>
+                    <span className="font-semibold text-lg block mb-1">Ocultos</span>
+                    <span className="text-sm opacity-75 bg-black/10 px-3 py-1 rounded-full">{inactiveProducts.length} productos</span>
                   </div>
                 </button>
               </nav>
 
               {/* Stats mejorados */}
-              <div className="mt-8 pt-6 border-t border-gray-200/50">
-                <h3 className="font-semibold text-gray-900 mb-4">Resumen</h3>
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center p-3 rounded-xl bg-gradient-to-r from-blue-50 to-blue-100/50">
-                    <span className="text-sm text-gray-700">Total</span>
-                    <span className="font-bold text-blue-700">{products.length}</span>
+              <div className="mt-10 pt-8 border-t border-gray-200/50">
+                <h3 className="font-semibold text-gray-900 text-lg mb-6">Resumen</h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center p-4 rounded-xl bg-gradient-to-r from-blue-50 to-blue-100/50">
+                    <span className="text-base text-gray-700">Total</span>
+                    <span className="font-bold text-lg text-blue-700">{products.length}</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 rounded-xl bg-gradient-to-r from-green-50 to-green-100/50">
-                    <span className="text-sm text-gray-700">Publicados</span>
-                    <span className="font-bold text-green-700">{activeProducts.length}</span>
+                  <div className="flex justify-between items-center p-4 rounded-xl bg-gradient-to-r from-green-50 to-green-100/50">
+                    <span className="text-base text-gray-700">Publicados</span>
+                    <span className="font-bold text-lg text-green-700">{activeProducts.length}</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 rounded-xl bg-gradient-to-r from-orange-50 to-orange-100/50">
-                    <span className="text-sm text-gray-700">Ocultos</span>
-                    <span className="font-bold text-orange-700">{inactiveProducts.length}</span>
+                  <div className="flex justify-between items-center p-4 rounded-xl bg-gradient-to-r from-orange-50 to-orange-100/50">
+                    <span className="text-base text-gray-700">Ocultos</span>
+                    <span className="font-bold text-lg text-orange-700">{inactiveProducts.length}</span>
                   </div>
                 </div>
               </div>
@@ -283,17 +272,17 @@ const AdminDashboard = () => {
           </div>
 
           {/* Main Content */}
-          <div className="lg:col-span-3">
+          <div className="md:col-span-3 lg:col-span-5 order-1 md:order-2">
             
             {/* Product Form - Completamente renovado */}
             {activeTab === 'form' && (
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-white/20 animate-slide-up">
-                <div className="flex items-center justify-between mb-8">
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-3 sm:p-6 lg:p-8 border border-white/20 animate-slide-up max-w-4xl mx-auto">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 mb-4 sm:mb-8">
                   <div>
-                    <h2 className="font-poppins text-3xl font-bold bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">
+                    <h2 className="font-poppins text-2xl sm:text-3xl font-bold bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">
                       {editingProduct ? 'Editar Producto' : 'Agregar Nuevo Producto'}
                     </h2>
-                    <p className="text-gray-600 mt-2">
+                    <p className="text-gray-600 text-sm sm:text-base mt-1 sm:mt-2">
                       {editingProduct ? 'Actualiza la información del producto' : 'Completa los datos para agregar un nuevo producto'}
                     </p>
                   </div>
@@ -308,10 +297,10 @@ const AdminDashboard = () => {
                 </div>
 
                 {/* Progress Steps - compactado y centrado */}
-                <div className="flex items-center justify-center mb-6 max-w-sm mx-auto">
+                <div className="flex items-center justify-center mb-6 max-w-full sm:max-w-sm mx-auto overflow-x-auto py-2">
                   {[1, 2, 3].map((step) => (
-                    <div key={step} className="flex items-center">
-                      <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    <div key={step} className="flex items-center shrink-0">
+                      <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
                         formStep >= step 
                           ? 'bg-black text-white shadow-md' 
                           : 'bg-gray-200 text-gray-500'
@@ -319,7 +308,7 @@ const AdminDashboard = () => {
                         {step}
                       </div>
                       {step < 3 && (
-                        <div className={`w-10 h-[3px] mx-2 transition-all duration-300 ${
+                        <div className={`w-8 sm:w-10 h-[3px] mx-2 transition-all duration-300 ${
                           formStep > step ? 'bg-black' : 'bg-gray-200'
                         }`} />
                       )}
@@ -332,18 +321,18 @@ const AdminDashboard = () => {
                   {/* Step 1: Información básica */}
                   {formStep === 1 && (
                     <div className="space-y-5 animate-fade-in">
-                      <div className="grid md:grid-cols-2 gap-5">
+                      <div className="grid md:grid-cols-2 gap-3 sm:gap-5">
                         {/* Nombre del Producto */}
-                        <div className="space-y-2">
-                          <label className="form-label text-lg font-semibold flex items-center gap-2">
-                            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="space-y-1 sm:space-y-2">
+                          <label className="form-label text-base sm:text-lg font-semibold flex items-center gap-2">
+                            <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-7 4h8M5 7h14" />
                             </svg>
                             Nombre del Producto
                           </label>
                           <div className="relative group">
-                            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-black">
-                              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-black">
+                              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                               </svg>
                             </div>
@@ -353,7 +342,7 @@ const AdminDashboard = () => {
                               value={formData.name}
                               onChange={handleInputChange}
                               required
-                              className="form-input-lg pl-10 focus:ring-2 focus:ring-black/20 focus:border-black/60 transition-shadow"
+                              className="form-input-lg pl-8 sm:pl-10 py-2 sm:py-3 text-sm sm:text-base focus:ring-2 focus:ring-black/20 focus:border-black/60 transition-shadow"
                               placeholder="Cookie Triple Chocolate"
                             />
                           </div>
@@ -361,15 +350,15 @@ const AdminDashboard = () => {
                         </div>
 
                         {/* Precio */}
-                        <div className="space-y-2">
-                          <label className="form-label text-lg font-semibold flex items-center gap-2">
-                            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="space-y-1 sm:space-y-2">
+                          <label className="form-label text-base sm:text-lg font-semibold flex items-center gap-2">
+                            <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-2.21 0-4 1.343-4 3s1.79 3 4 3 4 1.343 4 3-1.79 3-4 3m0-12c2.21 0 4 1.343 4 3M12 4v16" />
                             </svg>
                             Precio ($)
                           </label>
                           <div className="relative group">
-                            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-black font-semibold">
+                            <div className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-black font-semibold">
                               $
                             </div>
                             <input
@@ -380,7 +369,7 @@ const AdminDashboard = () => {
                               required
                               step="0.01"
                               min="0"
-                              className="form-input-lg pl-8 focus:ring-2 focus:ring-black/20 focus:border-black/60 transition-shadow"
+                              className="form-input-lg pl-6 sm:pl-8 py-2 sm:py-3 text-sm sm:text-base focus:ring-2 focus:ring-black/20 focus:border-black/60 transition-shadow"
                               placeholder="3000.00"
                             />
                           </div>
@@ -389,9 +378,9 @@ const AdminDashboard = () => {
                       </div>
 
                       {/* Descripción */}
-                      <div className="space-y-2">
-                        <label className="form-label text-lg font-semibold flex items-center gap-2">
-                          <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="space-y-1 sm:space-y-2">
+                        <label className="form-label text-base sm:text-lg font-semibold flex items-center gap-2">
+                          <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16h8M8 12h8M8 8h8M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                           </svg>
                           Descripción
@@ -402,11 +391,11 @@ const AdminDashboard = () => {
                             value={formData.description}
                             onChange={handleInputChange}
                             required
-                            rows="4"
-                            className="form-input-lg pr-12 focus:ring-2 focus:ring-black/20 focus:border-black/60 transition-shadow"
+                            rows="3"
+                            className="form-input-lg pr-12 py-2 sm:py-3 text-sm sm:text-base focus:ring-2 focus:ring-black/20 focus:border-black/60 transition-shadow"
                             placeholder="Describe los ingredientes y características especiales de tu cookie..."
                           />
-                          <div className="absolute bottom-3 right-3 text-xs text-gray-400">
+                          <div className="absolute bottom-2 sm:bottom-3 right-2 sm:right-3 text-xs text-gray-400">
                             {Math.max(0, 300 - (formData.description?.length || 0))} caracteres
                           </div>
                         </div>
