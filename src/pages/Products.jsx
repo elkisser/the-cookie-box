@@ -201,6 +201,7 @@ const Products = ({ addToCart }) => {
           </p>
           
         {/* Filtros + Búsqueda */}
+        {/* Filtros + Búsqueda */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-4 max-w-4xl mx-auto">
           {/* Toggle Mobile */}
           <button 
@@ -212,7 +213,42 @@ const Products = ({ addToCart }) => {
           </button>
 
           {/* Switch de filtros */}
-          <div className={`inline-flex p-1 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-x-auto w-full md:w-auto ${mobileFiltersOpen ? 'flex' : 'hidden'} md:flex`}>
+          <div className="w-full md:w-auto">
+            <AnimatePresence initial={false} mode="wait">
+              {mobileFiltersOpen && (
+                <motion.div
+                  key="mobile-filters"
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.18 }}
+                  className="inline-flex p-1 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-x-auto w-full md:hidden"
+                >
+                  {[
+                    { key: 'all', label: 'Todos' },
+                    { key: 'cookies', label: 'Cookies' },
+                    { key: 'postres', label: 'Postres' },
+                    { key: 'tortas', label: 'Tortas' },
+                    { key: 'budines', label: 'Budines' },
+                  ].map((opt) => (
+                    <button
+                      key={opt.key}
+                      onClick={() => setFilter(opt.key)}
+                      className={`px-4 py-2 rounded-xl font-poppins text-sm transition-all duration-200 whitespace-nowrap ${
+                        filter === opt.key
+                          ? 'bg-black text-white shadow'
+                          : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Desktop: mostrar siempre */}
+            <div className="hidden md:flex inline-flex p-1 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-x-auto w-auto">
               {[
                 { key: 'all', label: 'Todos' },
                 { key: 'cookies', label: 'Cookies' },
@@ -233,6 +269,7 @@ const Products = ({ addToCart }) => {
                 </button>
               ))}
             </div>
+          </div>
 
             {/* Search Bar */}
           <div className="relative w-full md:max-w-xs">
