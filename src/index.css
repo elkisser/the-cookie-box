@@ -152,6 +152,15 @@ body {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
+
+  .cookie-piece {
+    position: absolute;
+    /* posición vertical controlada por la animación */
+    top: -50px;
+    font-size: 32px;
+    opacity: 0.15; /* subtle but visible */
+    animation: cookieFall linear infinite;
+  }
 }
 
 /* Loading spinner */
