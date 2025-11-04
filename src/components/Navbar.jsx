@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Cart from './Cart';
 
 const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
+  const isAdminRoute = location.pathname === '/mrcookie';
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -36,42 +39,65 @@ const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
                 Productos
               </Link>
               
-              {/* Cart Button */}
-              <button 
-                onClick={() => setIsCartOpen(true)}
-                className="relative p-3 text-gray-700 hover:text-black transition-colors duration-200 group"
-              >
-                <div className="flex items-center space-x-2">
-                  <svg className="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-                      d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5.5M7 13l2.5 5.5m0 0L17 21" />
+              {isAdminRoute ? (
+                <button
+                  onClick={() => navigate('/logout')}
+                  className="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 bg-white shadow-sm hover:bg-gray-100 transition-colors text-gray-700 hover:text-black"
+                  title="Cerrar sesión"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1"/>
                   </svg>
-                  <span className="font-medium">Carrito</span>
-                </div>
-                {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-black text-white rounded-full w-6 h-6 text-xs flex items-center justify-center font-medium">
-                    {totalItems}
-                  </span>
-                )}
-              </button>
+                  <span className="font-medium">Salir</span>
+                </button>
+              ) : (
+                <button 
+                  onClick={() => setIsCartOpen(true)}
+                  className="relative p-3 text-gray-700 hover:text-black transition-colors duration-200 group"
+                >
+                  <div className="flex items-center space-x-2">
+                    <svg className="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5.5M7 13l2.5 5.5m0 0L17 21" />
+                    </svg>
+                    <span className="font-medium">Carrito</span>
+                  </div>
+                  {totalItems > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-black text-white rounded-full w-6 h-6 text-xs flex items-center justify-center font-medium">
+                      {totalItems}
+                    </span>
+                  )}
+                </button>
+              )}
             </div>
 
             {/* Mobile menu button */}
             <div className="md:hidden flex items-center space-x-4">
-              <button 
-                onClick={() => setIsCartOpen(true)}
-                className="relative p-2 text-gray-700"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5.5M7 13l2.5 5.5m0 0L17 21" />
-                </svg>
-                {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-black text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
-                    {totalItems}
-                  </span>
-                )}
-              </button>
+              {isAdminRoute ? (
+                <button
+                  onClick={() => navigate('/logout')}
+                  className="p-2 text-gray-700"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1"/>
+                  </svg>
+                </button>
+              ) : (
+                <button 
+                  onClick={() => setIsCartOpen(true)}
+                  className="relative p-2 text-gray-700"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                      d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5.5M7 13l2.5 5.5m0 0L17 21" />
+                  </svg>
+                  {totalItems > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-black text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
+                      {totalItems}
+                    </span>
+                  )}
+                </button>
+              )}
               
               <button 
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}

@@ -171,21 +171,12 @@ const AdminDashboard = () => {
         {/* Header con animación */}
         <div className="text-center mb-12 animate-fade-in">
           <div className="flex items-center justify-center mb-4 relative">
-            <div className="w-14 h-14 bg-gradient-to-br from-black to-gray-800 rounded-2xl flex items-center justify-center mr-4 shadow-lg transform hover:scale-105 transition-transform duration-300">
+            <div className="hidden md:flex w-14 h-14 bg-gradient-to-br from-black to-gray-800 rounded-2xl items-center justify-center mr-4 shadow-lg transform hover:scale-105 transition-transform duration-300">
               <span className="text-white font-praise text-2xl">🍪</span>
             </div>
             <h1 className="font-praise text-6xl text-black bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">
               Admin Dashboard
             </h1>
-            {/* Logout button (no navbar) */}
-            <button
-              onClick={() => navigate('/logout')}
-              className="absolute right-0 top-1/2 -translate-y-1/2 hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 bg-white shadow-sm hover:bg-gray-100 transition-colors"
-              title="Cerrar sesión"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1"/></svg>
-              <span className="font-poppins text-sm">Salir</span>
-            </button>
           </div>
           <p className="font-poppins text-gray-600 text-lg max-w-2xl mx-auto">
             Gestiona tu catálogo de cookies artesanales
@@ -723,17 +714,17 @@ const ProductList = ({ products, loading, onEdit, onDelete, onToggleStatus, titl
       ) : (
         <div className="grid gap-6">
           {products.map((product, index) => (
-            <div 
+                          <div 
               key={product.id} 
-              className="border border-gray-200/50 rounded-2xl p-6 hover:shadow-2xl transition-all duration-300 group bg-gradient-to-br from-white to-gray-50/50 backdrop-blur-sm animate-stagger"
+              className="border border-gray-200/50 rounded-2xl p-4 sm:p-6 hover:shadow-2xl transition-all duration-300 group bg-gradient-to-br from-white to-gray-50/50 backdrop-blur-sm animate-stagger"
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-6 flex-1">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 flex-1">
                   <div className="relative">
                     <img 
                       src={product.imageUrl} 
                       alt={product.name}
-                      className="w-24 h-24 object-cover rounded-2xl shadow-lg group-hover:scale-105 transition-transform duration-300"
+                      className="w-full sm:w-24 h-32 sm:h-24 object-cover rounded-2xl shadow-lg group-hover:scale-105 transition-transform duration-300"
                     />
                     {!isInactive && (
                       <div className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full border-2 border-white shadow-lg flex items-center justify-center">
@@ -743,45 +734,45 @@ const ProductList = ({ products, loading, onEdit, onDelete, onToggleStatus, titl
                       </div>
                     )}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center space-x-3 mb-2">
+                  <div className="flex-1 min-w-0 w-full">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
                       <h3 className="font-poppins font-bold text-gray-900 text-xl truncate">{product.name}</h3>
                       {!isInactive ? (
-                        <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full font-semibold shadow-sm">
+                        <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full font-semibold shadow-sm w-fit">
                           Activo
                         </span>
                       ) : (
-                        <span className="px-3 py-1 bg-orange-100 text-orange-800 text-sm rounded-full font-semibold shadow-sm">
+                        <span className="px-3 py-1 bg-orange-100 text-orange-800 text-sm rounded-full font-semibold shadow-sm w-fit">
                           Oculto
                         </span>
                       )}
                     </div>
                     <p className="font-poppins text-gray-600 line-clamp-2 mb-3 leading-relaxed">{product.description}</p>
-                    <div className="flex items-center space-x-6">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:items-center sm:gap-6">
                       <p className="font-poppins font-bold text-2xl bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
                         ${product.price}
                       </p>
-                      <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                      <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full w-fit">
                         Creado: {product.createdAt?.toDate?.().toLocaleDateString() || 'N/A'}
                       </span>
                     </div>
                   </div>
                 </div>
                 
-                <div className="flex items-center space-x-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
+                <div className="flex items-center gap-3 w-full sm:w-auto justify-end sm:opacity-0 group-hover:opacity-100 transition-all duration-300 transform sm:translate-x-4 group-hover:translate-x-0">
                   <button
                     onClick={() => onEdit(product)}
-                    className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl hover:scale-110 transition-all duration-300 shadow-lg"
+                    className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl hover:scale-110 transition-all duration-300 shadow-lg flex-1 sm:flex-none"
                     title="Editar producto"
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
                   </button>
                   
                   <button
                     onClick={() => onToggleStatus(product.id, product.isActive !== false)}
-                    className={`p-3 rounded-xl hover:scale-110 transition-all duration-300 shadow-lg ${
+                    className={`p-3 rounded-xl hover:scale-110 transition-all duration-300 shadow-lg flex-1 sm:flex-none ${
                       isInactive 
                         ? 'bg-gradient-to-br from-green-500 to-green-600 text-white' 
                         : 'bg-gradient-to-br from-orange-500 to-orange-600 text-white'
@@ -789,12 +780,12 @@ const ProductList = ({ products, loading, onEdit, onDelete, onToggleStatus, titl
                     title={isInactive ? 'Mostrar producto' : 'Ocultar producto'}
                   >
                     {isInactive ? (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                       </svg>
                     ) : (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
                       </svg>
                     )}
@@ -802,10 +793,10 @@ const ProductList = ({ products, loading, onEdit, onDelete, onToggleStatus, titl
                   
                   <button
                     onClick={() => onDelete(product.id)}
-                    className="p-3 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-xl hover:scale-110 transition-all duration-300 shadow-lg"
+                    className="p-3 bg-gradient-to-br from-red-500 to-red-600 text-white rounded-xl hover:scale-110 transition-all duration-300 shadow-lg flex-1 sm:flex-none"
                     title="Eliminar producto"
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
                   </button>

@@ -47,7 +47,7 @@ const Cart = ({ isOpen, onClose, items, updateQuantity, removeFromCart }) => {
 
   return (
     <div className={`fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-end ${isClosing ? 'fade-out' : 'fade-in'}`} onClick={handleClose}>
-      <div className={`bg-white w-full max-w-md h-full overflow-y-auto ${isClosing ? 'cart-slide-out' : 'cart-slide-in'}`} onClick={(e) => e.stopPropagation()}>
+      <div className={`bg-white w-full max-w-md h-full overflow-y-auto ${isClosing ? 'cart-slide-out' : 'cart-slide-in'} flex flex-col`} onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="bg-black text-white p-6">
           <div className="flex justify-between items-center">
@@ -66,7 +66,7 @@ const Cart = ({ isOpen, onClose, items, updateQuantity, removeFromCart }) => {
           </p>
         </div>
 
-        <div className="p-6">
+        <div className="p-6 flex-1 overflow-y-auto">
           {items.length === 0 ? (
             <div className="text-center py-12">
               <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -82,38 +82,19 @@ const Cart = ({ isOpen, onClose, items, updateQuantity, removeFromCart }) => {
               {/* Items List */}
               <div className="space-y-4 mb-8">
                 {items.map((item) => (
-                  <div key={item.id} className="flex items-center space-x-4 p-4 bg-gray-50 rounded-xl">
+                  <div key={item.id} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4 bg-gray-50 rounded-xl">
                     <img 
                       src={item.imageUrl} 
                       alt={item.name} 
-                      className="w-20 h-20 object-cover rounded-lg"
+                      className="w-full sm:w-20 h-32 sm:h-20 object-cover rounded-lg"
                     />
                     
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-poppins font-semibold text-black text-sm truncate">{item.name}</h3>
-                      <p className="font-poppins font-bold text-black text-lg">${item.price}</p>
-                      
-                      <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center space-x-3">
-                          <button
-                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
-                          >
-                            <span className="text-gray-600">-</span>
-                          </button>
-                          
-                          <span className="font-poppins font-semibold text-black w-8 text-center">
-                            {item.quantity}
-                          </span>
-                          
-                          <button
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
-                          >
-                            <span className="text-gray-600">+</span>
-                          </button>
+                    <div className="flex-1 min-w-0 w-full">
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <h3 className="font-poppins font-semibold text-black text-sm truncate">{item.name}</h3>
+                          <p className="font-poppins font-bold text-black text-lg">${item.price}</p>
                         </div>
-                        
                         <button
                           onClick={() => removeFromCart(item.id)}
                           className="text-red-500 hover:text-red-700 p-2 transition-colors"
@@ -123,13 +104,35 @@ const Cart = ({ isOpen, onClose, items, updateQuantity, removeFromCart }) => {
                           </svg>
                         </button>
                       </div>
+                      
+                      <div className="flex items-center mt-4 w-full">
+                        <div className="flex items-center justify-center gap-4 w-full">
+                          <button
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            className="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
+                          >
+                            <span className="text-gray-600 text-xl">-</span>
+                          </button>
+                          
+                          <span className="font-poppins font-semibold text-black w-12 text-center text-lg">
+                            {item.quantity}
+                          </span>
+                          
+                          <button
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            className="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center hover:bg-gray-100 transition-colors"
+                          >
+                            <span className="text-gray-600 text-xl">+</span>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
               
               {/* Total and Actions */}
-              <div className="bg-black rounded-2xl p-6 text-white">
+              <div className="sticky bottom-0 bg-black rounded-t-2xl p-6 text-white shadow-lg">
                 <div className="flex justify-between items-center mb-6">
                   <span className="font-poppins font-semibold text-lg">Total:</span>
                   <span className="font-praise text-2xl">${total}</span>
