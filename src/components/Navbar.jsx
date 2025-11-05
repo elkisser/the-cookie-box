@@ -18,8 +18,13 @@ const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center">
-                <span className="text-white font-praise text-xl">🍪</span>
+              <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center overflow-hidden">
+                <img 
+                  src="/logo_tcb.png" 
+                  alt="Logo The Cookie Box" 
+                  className="w-full h-full object-cover object-center"
+                  style={{ position: 'relative', right: '1px' }}
+                />
               </div>
               <span className="font-praise text-3xl text-black">The Cookie Box</span>
             </Link>

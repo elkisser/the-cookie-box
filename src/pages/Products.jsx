@@ -85,7 +85,7 @@ const Products = ({ addToCart }) => {
   const isPostre = (name = '', description = '') => {
     const text = `${name} ${description}`.toLowerCase();
     return text.includes('postre') || text.includes('dessert') || 
-           text.includes('dulce') || text.includes('postrecito');
+          text.includes('postrecito');
   };
 
   const isTorta = (name = '', description = '') => {

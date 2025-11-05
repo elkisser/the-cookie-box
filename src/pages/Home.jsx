@@ -324,14 +324,18 @@ const Home = () => {
                   te armamos una propuesta a medida con precios mayoristas.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4">
-                  <a
-                    href={`https://instagram.com/thecookiebox.sf`}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      const msg = '¡Hola! Me interesa comprar por cantidad/por mayor de The Cookie Box.\\n\\nContame por favor precios mayoristas, cantidades mínimas y tiempos de entrega.\\n\\n¡Gracias!';
+                      try { if (navigator?.clipboard?.writeText) await navigator.clipboard.writeText(msg); } catch {}
+                      window.open('https://www.instagram.com/thecookiebox.sf/', '_blank', 'noopener');
+                      try { alert('El mensaje fue copiado. Pegalo en el chat de Instagram 📩'); } catch {}
+                    }}
                     className="inline-flex items-center justify-center bg-white text-black px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-[1.02]"
                   >
-                    Contactar por Instagram
-                  </a>
+                    Escribir en Instagram
+                  </button>
                   <a
                     href={`mailto:thecookiebox.sf@gmail.com?subject=${encodeURIComponent('Consulta compras por mayor - The Cookie Box')}&body=${encodeURIComponent('Hola, me gustaría recibir info de compras por mayor (cantidades, precios y tiempos). ¡Gracias!')}`}
                     className="inline-flex items-center justify-center bg-transparent text-white px-8 py-4 rounded-xl font-semibold border border-white/30 hover:bg-white/10 transition-all duration-300"
