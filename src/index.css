@@ -216,6 +216,9 @@ body {
   animation-iteration-count: infinite;
   will-change: transform, top, opacity;
   pointer-events: none;
+  /* Blend para intentar 'eliminar' fondo blanco en imágenes JPG */
+  mix-blend-mode: multiply;
+  -webkit-mix-blend-mode: multiply;
 }
 
 @keyframes cookieFall {
@@ -235,24 +238,23 @@ body {
 }
 
 .remove-bg {
+  /* Preferimos multiply para 'ocultar' fondo blanco al mezclar con el fondo
+     del contenedor. Añadimos el prefijo webkit para mayor compatibilidad. */
+  -webkit-mix-blend-mode: multiply;
   mix-blend-mode: multiply;
-  filter: contrast(1.1) brightness(1.05);
+  /* Ajustes visuales ligeros */
+  filter: contrast(1.08) brightness(1.02) saturate(1.03);
+  -webkit-filter: contrast(1.08) brightness(1.02) saturate(1.03);
   background: transparent;
+  display: block;
 }
 
-/* Fix específico para Safari/iPhone */
-@supports (-webkit-touch-callout: none) {
-  .remove-bg {
-    mix-blend-mode: normal;
-    filter: contrast(1.15) brightness(1.1) saturate(1.1);
-    background: transparent !important;
-    opacity: 0.95;
-  }
-}
+/* (la regla global .cookie-piece ya contiene mix-blend-mode) */
 
 /* Opcional: si necesitas más control sobre la remoción de fondo */
 .remove-bg-alt {
   background: transparent;
+  -webkit-mix-blend-mode: multiply;
   mix-blend-mode: multiply;
 }
 
