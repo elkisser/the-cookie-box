@@ -239,6 +239,12 @@ body {
     mix-blend-mode: multiply;
 }
 
+/* Opcional: si necesitas más control sobre la remoción de fondo */
+.remove-bg-alt {
+  background: transparent;
+  mix-blend-mode: multiply;
+}
+
 /* Image rotator cross-fade styles */
 .image-rotator {
   position: relative;

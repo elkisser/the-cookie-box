@@ -87,90 +87,132 @@ const Home = () => {
       </section>
 
       {/* About Section */}
-      <section className="py-20 lg:py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="fade-in">
-              <h2 className="font-praise text-5xl lg:text-6xl text-black mb-8">Quiénes Somos</h2>
-              <div className="space-y-6">
-                <p className="font-poppins text-gray-700 text-lg leading-relaxed">
-                  En <span className="font-semibold text-black">The Cookie Box</span> hacemos cookies artesanales en Santa Fe Capital. 
-                  Cada cookie se elabora con ingredientes de calidad y dedicación, para disfrutar en cada bocado.
-                </p>
-                <p className="font-poppins text-gray-700 text-lg leading-relaxed">
-                  Nuestra especialidad son las <span className="font-semibold text-black">Crumble Cookies</span>, y siempre estamos probando 
-                  nuevos sabores y texturas.
-                </p>
-                <div className="flex flex-wrap gap-6 pt-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center">
-                      <svg
-                        className="w-6 h-6 text-white"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M19.5 10.5c0 7.5-7.5 11.25-7.5 11.25S4.5 18 4.5 10.5a7.5 7.5 0 1115 0z" />
-                        <path d="M12 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" />
-                      </svg>
-                    </div>
-                    <span className="font-poppins font-semibold text-black">Santa Fe Capital</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center">
-                      <svg
-                        className="w-6 h-6 text-white"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        aria-hidden="true"
-                      >
-                        <path d="M3.75 6.75h16.5A1.75 1.75 0 0122 8.5v7a1.75 1.75 0 01-1.75 1.75H3.75A1.75 1.75 0 012 15.5v-7A1.75 1.75 0 013.75 6.75z" />
-                        <path d="M3 8l9 6 9-6" />
-                      </svg>
-                    </div>
-                    <span className="font-poppins font-semibold text-black">Pedidos con anticipación</span>
-                  </div>
-                </div>
+<section className="py-20 lg:py-28 bg-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="fade-in">
+        <h2 className="font-praise text-5xl lg:text-6xl text-black mb-8">Quiénes Somos</h2>
+        <div className="space-y-6">
+          <p className="font-poppins text-gray-700 text-lg leading-relaxed">
+            En <span className="font-semibold text-black">The Cookie Box</span> hacemos cookies artesanales en Santa Fe Capital. 
+            Cada cookie se elabora con ingredientes de calidad y dedicación, para disfrutar en cada bocado.
+          </p>
+          <p className="font-poppins text-gray-700 text-lg leading-relaxed">
+            Nuestra especialidad son las <span className="font-semibold text-black">Crumble Cookies</span>, y siempre estamos probando 
+            nuevos sabores y texturas.
+          </p>
+          <div className="flex flex-wrap gap-6 pt-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center">
+                <svg
+                  className="w-6 h-6 text-white"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M19.5 10.5c0 7.5-7.5 11.25-7.5 11.25S4.5 18 4.5 10.5a7.5 7.5 0 1115 0z" />
+                  <path d="M12 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" />
+                </svg>
               </div>
+              <span className="font-poppins font-semibold text-black">Santa Fe Capital</span>
             </div>
-            
-            <div className="grid grid-cols-2 gap-6 fade-in">
-              <div className="space-y-6">
-                <img 
-                  src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                  alt="Cookies artesanales"
-                  className="w-full h-80 object-cover rounded-2xl shadow-lg"
-                />
-                <img 
-                  src="https://images.unsplash.com/photo-1623334044303-241021148842?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                  alt="Proceso artesanal"
-                  className="w-full h-60 object-cover rounded-2xl shadow-lg"
-                />
+            <div className="flex items-center space-x-3">
+              <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center">
+                <svg
+                  className="w-6 h-6 text-white"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M3.75 6.75h16.5A1.75 1.75 0 0122 8.5v7a1.75 1.75 0 01-1.75 1.75H3.75A1.75 1.75 0 012 15.5v-7A1.75 1.75 0 013.75 6.75z" />
+                  <path d="M3 8l9 6 9-6" />
+                </svg>
               </div>
-              <div className="space-y-6 pt-12">
-                <img 
-                  src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                  alt="Ingredientes premium"
-                  className="w-full h-60 object-cover rounded-2xl shadow-lg"
-                />
-                <img 
-                  src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
-                  alt="Cookie Box especial"
-                  className="w-full h-80 object-cover rounded-2xl shadow-lg"
-                />
-              </div>
+              <span className="font-poppins font-semibold text-black">Pedidos con anticipación</span>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+      
+      {/* Montón compacto de cookies - sin espacios */}
+      <div className="relative h-80 lg:h-96 top-10 flex items-center justify-center fade-in">
+        {/* Fondo sólido para cubrir espacios */}
+        
+        
+        {/* Base del montón - cookies grandes abajo */}
+        <div className="relative z-20 flex items-end justify-center">
+          {/* Cookie trasera izquierda */}
+          <div className="relative -mr-8 -mb-4 transform rotate-6 hover:scale-105 transition-transform duration-300">
+            <img 
+              src="/cookies/DULCE DE LECHE .jpg"
+              alt="Cookie Dulce de Leche"
+              className="w-40 h-40 lg:w-44 lg:h-44 object-cover rounded-full shadow-lg remove-bg"
+            />
+          </div>
+          
+          {/* Cookie central base */}
+          <div className="relative z-10 transform -rotate-3 hover:scale-105 transition-transform duration-300">
+            <img 
+              src="/cookies/NUTELLA.jpg"
+              alt="Cookie Nutella"
+              className="w-44 h-44 lg:w-48 lg:h-48 object-cover rounded-full shadow-lg remove-bg"
+            />
+          </div>
+          
+          {/* Cookie trasera derecha */}
+          <div className="relative -ml-8 -mb-4 transform -rotate-8 hover:scale-105 transition-transform duration-300">
+            <img 
+              src="/cookies/OREO .jpg"
+              alt="Cookie Oreo"
+              className="w-40 h-40 lg:w-44 lg:h-44 object-cover rounded-full shadow-lg remove-bg"
+            />
+          </div>
+        </div>
+        
+        {/* Segunda capa - cookies medianas */}
+        <div className="absolute z-30 top-8 flex items-center justify-center space-x-4">
+          {/* Cookie izquierda segunda capa */}
+          <div className="relative transform rotate-12 hover:scale-105 transition-transform duration-300">
+            <img 
+              src="/cookies/FRUTOS ROJOS.jpg"
+              alt="Cookie Frutos Rojos"
+              className="w-36 h-36 lg:w-40 lg:h-40 object-cover rounded-full shadow-lg remove-bg"
+            />
+          </div>
+          
+          {/* Cookie derecha segunda capa */}
+          <div className="relative transform -rotate-10 hover:scale-105 transition-transform duration-300">
+            <img 
+              src="/cookies/KÍNDER.jpg"
+              alt="Cookie Kinder"
+              className="w-36 h-36 lg:w-40 lg:h-40 object-cover rounded-full shadow-lg remove-bg"
+            />
+          </div>
+        </div>
+        
+        {/* Tercera capa - cookie superior */}
+        <div className="absolute z-40 top-4 transform rotate-5 hover:scale-110 transition-transform duration-300">
+          <img 
+            src="/cookies/MILKA OREO.jpg"
+            alt="Cookie Milka Oreo"
+            className="w-32 h-32 lg:w-36 lg:h-36 object-cover rounded-full shadow-lg remove-bg"
+          />
+        </div>
+        
+        {/* Sombra del conjunto */}
+        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-72 h-6 bg-black/10 rounded-full blur-md -z-10"></div>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Features Section */}
       <section className="py-20 lg:py-28 bg-gray-50">
