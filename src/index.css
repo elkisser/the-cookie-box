@@ -240,11 +240,13 @@ body {
   background: transparent;
 }
 
-/* Para mobile - alternativa */
-@media (max-width: 768px) {
+/* Fix específico para Safari/iPhone */
+@supports (-webkit-touch-callout: none) {
   .remove-bg {
-    mix-blend-mode: multiply;
-    filter: contrast(1.2) brightness(1.1) saturate(1.1);
+    mix-blend-mode: normal;
+    filter: contrast(1.15) brightness(1.1) saturate(1.1);
+    background: transparent !important;
+    opacity: 0.95;
   }
 }
 

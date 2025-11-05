@@ -264,6 +264,58 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-black to-gray-900 text-white p-10 md:p-14 shadow-xl">
             <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/5 blur-2xl" aria-hidden="true"></div>
+
+            {/* Fondo animado de galletitas (versión ligera para esta sección) */}
+            <div className="cookie-bg remove-bg" aria-hidden="true">
+              {(() => {
+                const cookieFileNames = [
+                  "BLOCK.jpg",
+                  "CHOCO NUTELLA.jpg",
+                  "COCO CON DULCE .jpg",
+                  "COOKIE MANTECOL.jpg",
+                  "DUBAI.jpg",
+                  "DULCE DE LECHE .jpg",
+                  "FRANUÍ .jpg",
+                  "FRUTOS ROJOS.jpg",
+                  "KÍNDER.jpg",
+                  "MANTECOL.jpg",
+                  "MILKA OREO.jpg",
+                  "NUTELLA.jpg",
+                  "OREO .jpg",
+                  "ROCKLETS .jpg",
+                ];
+
+                const assetPath = (name) => `/cookies/${encodeURIComponent(name)}`;
+
+                // Menos piezas aquí para rendimiento (12)
+                return Array.from({ length: 12 }).map((_, i) => {
+                  const img = assetPath(cookieFileNames[Math.floor(Math.random() * cookieFileNames.length)]);
+                  const left = `${Math.random() * 100}%`;
+                  const size = 20 + Math.floor(Math.random() * 32); // 20px - 52px
+                  const duration = (6 + Math.random() * 6).toFixed(2) + 's';
+                  const delay = (Math.random() * -6).toFixed(2) + 's';
+
+                  return (
+                    <img
+                      key={i}
+                      src={img}
+                      alt="cookie"
+                      className="cookie-piece remove-bg"
+                      style={{
+                        left,
+                        width: `${size}px`,
+                        height: `${size}px`,
+                        animationDuration: duration,
+                        animationDelay: delay,
+                        opacity: 0.95,
+                        objectFit: 'cover',
+                        borderRadius: '8px',
+                      }}
+                    />
+                  );
+                });
+              })()}
+            </div>
             <div className="grid md:grid-cols-2 gap-10 items-center">
               <div className="text-center md:text-left">
                 <h2 className="font-praise text-5xl lg:text-6xl mb-4">¿Compras por Cantidad?</h2>
