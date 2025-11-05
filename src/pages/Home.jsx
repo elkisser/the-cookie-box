@@ -13,23 +13,23 @@ const Home = () => {
           {(() => {
             // Lista de archivos en public/cookies (generada desde el folder del proyecto)
             const cookieFileNames = [
-              "BLOCK.jpg",
-              "CHOCO NUTELLA.jpg",
-              "COCO CON DULCE .jpg",
-              "COOKIE MANTECOL.jpg",
-              "DUBAI.jpg",
-              "DULCE DE LECHE .jpg",
-              "FRANUÍ .jpg",
-              "FRUTOS ROJOS.jpg",
-              "KÍNDER.jpg",
-              "MANTECOL.jpg",
-              "MILKA OREO.jpg",
-              "NUTELLA.jpg",
-              "OREO .jpg",
-              "ROCKLETS .jpg",
+              "cookie_render_1.png",
+              "cookie_render_2.png",
+              "cookie_render_3.png",
+              "cookie_render_4.png",
+              "cookie_render_5.png",
+              "cookie_render_6.png",
+              "cookie_render_7.png",
+              "cookie_render_8.png",
+              "cookie_render_9.png",
+              "cookie_render_10.png",
+              "cookie_render_11.png",
+              "cookie_render_12.png",
+              "cookie_render_13.png",
+              "cookie_render_14.png",
             ];
 
-            const assetPath = (name) => `/cookies/${encodeURIComponent(name)}`;
+            const assetPath = (name) => `/cookies_render/${encodeURIComponent(name)}`;
 
             // Renderizamos N piezas que caerán; cada una elige imagen, tamaño y timings aleatoriamente
             return Array.from({ length: 22 }).map((_, i) => {
