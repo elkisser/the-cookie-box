@@ -41,6 +41,7 @@ const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
               
               {isAdminRoute ? (
                 <button
+                  type="button"
                   onClick={() => navigate('/logout')}
                   className="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 bg-white shadow-sm hover:bg-gray-100 transition-colors text-gray-700 hover:text-black"
                   title="Cerrar sesión"
@@ -52,6 +53,7 @@ const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
                 </button>
               ) : (
                 <button 
+                  type="button"
                   onClick={() => setIsCartOpen(true)}
                   className="relative p-3 text-gray-700 hover:text-black transition-colors duration-200 group"
                 >
@@ -75,6 +77,7 @@ const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
             <div className="md:hidden flex items-center space-x-4">
               {isAdminRoute ? (
                 <button
+                  type="button"
                   onClick={() => navigate('/logout')}
                   className="p-2 text-gray-700"
                 >
@@ -84,6 +87,7 @@ const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
                 </button>
               ) : (
                 <button 
+                  type="button"
                   onClick={() => setIsCartOpen(true)}
                   className="relative p-2 text-gray-700"
                 >
@@ -100,6 +104,7 @@ const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
               )}
               
               <button 
+                type="button"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="text-gray-700 hover:text-black p-2"
               >

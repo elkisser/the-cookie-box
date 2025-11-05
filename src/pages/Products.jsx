@@ -34,25 +34,29 @@ const Products = ({ addToCart }) => {
     return rotatingIcons[currentIconIndex];
   };
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const q = query(collection(db, 'products'), orderBy('name'));
-        const querySnapshot = await getDocs(q);
-        const productsData = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setProducts(productsData);
-      } catch (error) {
-        console.error('Error fetching products:', error);
-        setError('Error al cargar los productos');
-      } finally {
-        setLoading(false);
-      }
-    };
+  // Función reutilizable para obtener productos (podemos llamarla desde botones sin recargar la página)
+  const fetchProducts = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const q = query(collection(db, 'products'), orderBy('name'));
+      const querySnapshot = await getDocs(q);
+      const productsData = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setProducts(productsData);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      setError('Error al cargar los productos');
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Leer filtro inicial desde la URL
@@ -177,7 +181,7 @@ const Products = ({ addToCart }) => {
             Verifica tu conexión a internet y que Firebase esté configurado correctamente.
           </p>
           <button 
-            onClick={() => window.location.reload()}
+            onClick={() => fetchProducts()}
             className="btn-primary"
           >
             Reintentar

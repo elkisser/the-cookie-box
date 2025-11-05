@@ -25,6 +25,7 @@ const ProductCard = ({ product, onAddToCart }) => {
         </p>
         
         <button
+          type="button"
           onClick={() => onAddToCart(product)}
           className="w-full bg-black text-white py-3 px-6 rounded-xl font-semibold hover:bg-gray-800 transition-all duration-200 transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-2"
         >
