@@ -3,8 +3,17 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Home = () => {
+  const [isWholesaleModalOpen, setIsWholesaleModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-white">
+      {/* Wholesale Modal */}
+      <AnimatePresence>
+        {isWholesaleModalOpen && (
+          <WholesaleModal onClose={() => setIsWholesaleModalOpen(false)} />
+        )}
+      </AnimatePresence>
+
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-gray-50 to-white py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-black bg-opacity-5 z-0"></div>
@@ -326,22 +335,11 @@ const Home = () => {
                 <div className="flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4">
                   <button
                     type="button"
-                    onClick={async () => {
-                      const msg = '¡Hola! Me interesa comprar por cantidad/por mayor de The Cookie Box.\\n\\nContame por favor precios mayoristas, cantidades mínimas y tiempos de entrega.\\n\\n¡Gracias!';
-                      try { if (navigator?.clipboard?.writeText) await navigator.clipboard.writeText(msg); } catch {}
-                      window.open('https://www.instagram.com/thecookiebox.sf/', '_blank', 'noopener');
-                      try { alert('El mensaje fue copiado. Pegalo en el chat de Instagram 📩'); } catch {}
-                    }}
+                    onClick={() => setIsWholesaleModalOpen(true)}
                     className="inline-flex items-center justify-center bg-white text-black px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-[1.02]"
                   >
-                    Escribir en Instagram
+                    Consultar por Mayor
                   </button>
-                  <a
-                    href={`mailto:thecookiebox.sf@gmail.com?subject=${encodeURIComponent('Consulta compras por mayor - The Cookie Box')}&body=${encodeURIComponent('Hola, me gustaría recibir info de compras por mayor (cantidades, precios y tiempos). ¡Gracias!')}`}
-                    className="inline-flex items-center justify-center bg-transparent text-white px-8 py-4 rounded-xl font-semibold border border-white/30 hover:bg-white/10 transition-all duration-300"
-                  >
-                    Escribir por Email
-                  </a>
                 </div>
               </div>
               <div className="hidden md:flex items-center justify-center">
@@ -372,6 +370,137 @@ const Home = () => {
     </div>
   );
 };
+
+// Modal para compras mayoristas
+function WholesaleModal({ onClose }) {
+  const [copied, setCopied] = useState(false);
+
+  // Copiar automáticamente al abrir el modal
+  useEffect(() => {
+    const copyMessage = async () => {
+      const message = `¡Hola! Me interesa realizar una compra mayorista de The Cookie Box.
+
+• Tipo de negocio: [Indicar si es panadería, cafetería, local comercial, etc.]
+• Cantidad aproximada: [Especificar cantidad estimada de cookies]
+• Frecuencia de compra: [Única vez / Mensual / Semanal]
+• Sabores de interés: [Mencionar los sabores que más te interesan]
+
+Me podrían enviar información sobre:
+✓ Precios mayoristas según cantidad
+✓ Cantidades mínimas de pedido
+✓ Tiempos de entrega y logística
+✓ Condiciones de pago
+✓ Catálogo completo de sabores disponibles
+
+¡Quedo atento/a a su respuesta! Muchas gracias.`;
+
+      try {
+        await navigator.clipboard.writeText(message);
+        setCopied(true);
+      } catch (err) {
+        // Fallback para navegadores que no soportan clipboard
+        const textArea = document.createElement('textarea');
+        textArea.value = message;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        setCopied(true);
+      }
+    };
+
+    copyMessage();
+  }, []);
+
+  const handleInstagramRedirect = () => {
+    window.open('https://www.instagram.com/thecookiebox.sf/', '_blank', 'noopener');
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-white rounded-3xl max-w-md w-full p-8 relative"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        {/* Content */}
+        <div className="text-center">
+          <div className="w-16 h-16 bg-black rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <svg
+                className="w-10 h-10 text-white"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
+                <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
+                <circle cx="17.5" cy="6.5" r="1.5" />
+            </svg>
+          </div>
+          
+          <h3 className="font-poppins font-bold text-2xl text-black mb-2">
+            Consulta por Mayor
+          </h3>
+          
+          {copied ? (
+            <>
+              <p className="font-poppins text-gray-600 mb-6">
+                ¡Mensaje copiado automáticamente! Ahora podés pegarlo en Instagram.
+              </p>
+              
+              <button
+                onClick={handleInstagramRedirect}
+                className="w-full bg-black text-white py-4 px-6 rounded-xl font-poppins font-semibold hover:bg-gray-800 transition-all duration-300 flex items-center justify-center space-x-3"
+              >
+                <svg
+                    className="w-6 h-6"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
+                    <circle cx="17.5" cy="6.5" r="1.5" />
+                </svg>
+                <span>Abrir Instagram</span>
+              </button>
+            </>
+          ) : (
+            <p className="font-poppins text-gray-600 mb-6">
+              Preparando tu mensaje...
+            </p>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
 
 // Small rotator component that cycles through every image in public/cookies
 function ImageRotator() {
