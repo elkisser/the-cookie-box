@@ -235,8 +235,17 @@ body {
 }
 
 .remove-bg {
-    filter: brightness(1.1);
+  mix-blend-mode: multiply;
+  filter: contrast(1.1) brightness(1.05);
+  background: transparent;
+}
+
+/* Para mobile - alternativa */
+@media (max-width: 768px) {
+  .remove-bg {
     mix-blend-mode: multiply;
+    filter: contrast(1.2) brightness(1.1) saturate(1.1);
+  }
 }
 
 /* Opcional: si necesitas más control sobre la remoción de fondo */
