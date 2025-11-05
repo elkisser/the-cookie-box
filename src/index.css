@@ -209,16 +209,61 @@ body {
 
 .cookie-piece {
   position: absolute;
-  /* posición vertical controlada por la animación */
-  font-size: 32px;
-  opacity: 0.15; /* subtle but visible */
-  animation: cookieFall linear infinite;
+  top: -60px;
+  /* La duración y delay se controlan inline desde React para variación aleatoria */
+  animation-name: cookieFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, top, opacity;
+  pointer-events: none;
 }
 
 @keyframes cookieFall {
-  0% { top: -40px; transform: rotate(0deg); opacity: 0.18; }
-  85% { opacity: 0.12; }
-  100% { top: 100%; transform: rotate(360deg); opacity: 0; } /* llega al fondo del hero */
+  0% {
+    top: -80px;
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.95;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  100% {
+    top: 110%;
+    transform: translateY(0) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.remove-bg {
+    filter: brightness(1.1);
+    mix-blend-mode: multiply;
+}
+
+/* Image rotator cross-fade styles */
+.image-rotator {
+  position: relative;
+  width: 14rem; /* 56 */
+  height: 14rem; /* 56 */
+  overflow: hidden;
+}
+.rotator-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.75rem; /* rounded-2xl */
+  transition: opacity 400ms ease-out, transform 400ms ease-out;
+  opacity: 0;
+  transform: translateX(100%);
+}
+.rotator-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+.rotator-out {
+  opacity: 0;
+  transform: translateX(-100%);
 }
 
 /* Reduce motion preference */

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Home = () => {
   return (
@@ -7,21 +8,57 @@ const Home = () => {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-gray-50 to-white py-20 lg:py-32 overflow-hidden">
         <div className="absolute inset-0 bg-black bg-opacity-5 z-0"></div>
-        {/* Decorative cookie background */}
-        <div className="cookie-bg" aria-hidden="true">
-          {Array.from({ length: 20 }).map((_, i) => (
-            <span
-              key={i}
-              className="cookie-piece"
-              style={{
-                left: `${(i * 8 + (i % 3) * 3) % 100}%`,
-                animationDuration: `${8 + (i % 2)}s`,
-                animationDelay: `${(i % 7) * 0.7}s`,
-              }}
-            >
-              🍪
-            </span>
-          ))}
+        {/* Decorative cookie background using images from public/cookies */}
+        <div className="cookie-bg remove-bg" aria-hidden="true">
+          {(() => {
+            // Lista de archivos en public/cookies (generada desde el folder del proyecto)
+            const cookieFileNames = [
+              "BLOCK.jpg",
+              "CHOCO NUTELLA.jpg",
+              "COCO CON DULCE .jpg",
+              "COOKIE MANTECOL.jpg",
+              "DUBAI.jpg",
+              "DULCE DE LECHE .jpg",
+              "FRANUÍ .jpg",
+              "FRUTOS ROJOS.jpg",
+              "KÍNDER.jpg",
+              "MANTECOL.jpg",
+              "MILKA OREO.jpg",
+              "NUTELLA.jpg",
+              "OREO .jpg",
+              "ROCKLETS .jpg",
+            ];
+
+            const assetPath = (name) => `/cookies/${encodeURIComponent(name)}`;
+
+            // Renderizamos N piezas que caerán; cada una elige imagen, tamaño y timings aleatoriamente
+            return Array.from({ length: 22 }).map((_, i) => {
+              const img = assetPath(cookieFileNames[Math.floor(Math.random() * cookieFileNames.length)]);
+              const left = `${Math.random() * 100}%`;
+              const size = 24 + Math.floor(Math.random() * 36); // entre 24px y 60px
+              const duration = (5 + Math.random() * 7).toFixed(2) + 's'; // entre 5s y 12s
+              const delay = (Math.random() * -8).toFixed(2) + 's'; // delays negativos para distribuir
+
+              return (
+                <img
+                  key={i}
+                  src={img}
+                  alt="cookie"
+                  className="cookie-piece remove-bg"
+                  style={{
+                    left,
+                    width: `${size}px`,
+                    height: `${size}px`,
+                    animationDuration: duration,
+                    animationDelay: delay,
+                    opacity: 0.95,
+                    objectFit: 'cover',
+                    borderRadius: '8px',
+                  }}
+                />
+              );
+            });
+          })()}
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in" style={{ zIndex: 10 }}>
           <h1 className="font-praise text-6xl md:text-8xl lg:text-9xl text-black mb-6 text-shadow">
@@ -195,12 +232,12 @@ const Home = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4">
                   <a
-                    href={`https://wa.me/543425000000?text=${encodeURIComponent('¡Hola! Me interesa comprar por cantidad/por mayor de The Cookie Box.\n\nContame por favor precios mayoristas, cantidades mínimas y tiempos de entrega.\n\n¡Gracias!')}`}
+                    href={`https://instagram.com/thecookiebox.sf`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center bg-white text-black px-8 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-[1.02]"
                   >
-                    Consultar por WhatsApp
+                    Contactar por Instagram
                   </a>
                   <a
                     href={`mailto:thecookiebox.sf@gmail.com?subject=${encodeURIComponent('Consulta compras por mayor - The Cookie Box')}&body=${encodeURIComponent('Hola, me gustaría recibir info de compras por mayor (cantidades, precios y tiempos). ¡Gracias!')}`}
@@ -211,9 +248,8 @@ const Home = () => {
                 </div>
               </div>
               <div className="hidden md:flex items-center justify-center">
-                <div className="w-56 h-56 rounded-2xl bg-white text-black flex items-center justify-center text-7xl shadow-2xl">
-                  🍪
-                </div>
+                {/* Ciclo de imágenes (muestra cada imagen del folder con transición) */}
+                <ImageRotator />
               </div>
             </div>
           </div>
@@ -239,5 +275,62 @@ const Home = () => {
     </div>
   );
 };
+
+// Small rotator component that cycles through every image in public/cookies
+function ImageRotator() {
+  const cookieFileNames = [
+    "BLOCK.jpg",
+    "CHOCO NUTELLA.jpg",
+    "COCO CON DULCE .jpg",
+    "COOKIE MANTECOL.jpg",
+    "DUBAI.jpg",
+    "DULCE DE LECHE .jpg",
+    "FRANUÍ .jpg",
+    "FRUTOS ROJOS.jpg",
+    "KÍNDER.jpg",
+    "MANTECOL.jpg",
+    "MILKA OREO.jpg",
+    "NUTELLA.jpg",
+    "OREO .jpg",
+    "ROCKLETS .jpg",
+  ];
+
+  const assetPath = (name) => `/cookies/${encodeURIComponent(name)}`;
+  const imgs = cookieFileNames.map(assetPath);
+  const [index, setIndex] = useState(0);
+
+  // Preload images
+  useEffect(() => {
+    imgs.forEach((s) => {
+      const img = new Image();
+      img.src = s;
+    });
+  }, [imgs]);
+
+  // Cycle with timeout for rotation
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setIndex((i) => (i + 1) % imgs.length);
+    }, 3000); // Ajustado a 3 segundos para coincidir con otros rotadores
+    return () => clearTimeout(t);
+  }, [index, imgs.length]);
+
+  return (
+    <div className="w-56 h-56 rounded-2xl bg-white text-black flex items-center justify-center shadow-2xl overflow-hidden relative">
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={index}
+          src={imgs[index]}
+          alt="cookie preview"
+          className="absolute inset-0 w-full h-full object-cover remove-bg"
+          initial={{ x: 100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: -100, opacity: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        />
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default Home;

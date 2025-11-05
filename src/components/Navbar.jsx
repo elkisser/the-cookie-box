@@ -1,12 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import Cart from './Cart';
 
 const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [currentCookie, setCurrentCookie] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Lista de cookies
+  const cookieFiles = [
+    "BLOCK.jpg",
+    "CHOCO NUTELLA.jpg",
+    "COCO CON DULCE .jpg",
+    "COOKIE MANTECOL.jpg",
+    "DUBAI.jpg",
+    "DULCE DE LECHE .jpg",
+    "FRANUÍ .jpg",
+    "FRUTOS ROJOS.jpg",
+    "KÍNDER.jpg",
+    "MANTECOL.jpg",
+    "MILKA OREO.jpg",
+    "NUTELLA.jpg",
+    "OREO .jpg",
+    "ROCKLETS .jpg",
+  ].map(name => `/cookies/${encodeURIComponent(name)}`);
+
+  // Cambiar cookie cada 3 segundos
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentCookie(prev => (prev + 1) % cookieFiles.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
 
   const isAdminRoute = location.pathname === '/mrcookie';
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
@@ -18,8 +46,19 @@ const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center">
-                <span className="text-white font-praise text-xl">🍪</span>
+              <div className="w-10 h-10 bg-black rounded-full flex items-center justify-center overflow-hidden relative">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={currentCookie}
+                    src={cookieFiles[currentCookie]}
+                    alt="Cookie"
+                    className="w-7 h-7 object-cover remove-bg"
+                    initial={{ x: 100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -100, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                  />
+                </AnimatePresence>
               </div>
               <span className="font-praise text-3xl text-black">The Cookie Box</span>
             </Link>
