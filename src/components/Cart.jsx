@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { useCart } from '../context/CartContext';
 
-const Cart = ({ isOpen, onClose, items, updateQuantity, removeFromCart }) => {
+const Cart = ({ isOpen, onClose }) => {
+  const { cartItems: items, updateQuantity, removeFromCart } = useCart();
   const [shouldRender, setShouldRender] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isClosing, setIsClosing] = useState(false);

@@ -5,7 +5,7 @@ import { db } from '../firebase/config';
 import ProductCard from '../components/ProductCard';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Products = ({ addToCart }) => {
+const Products = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -355,7 +355,6 @@ const Products = ({ addToCart }) => {
                       <div key={product.id} className="animate-stagger" style={{ animationDelay: `${index * 100}ms` }}>
                         <ProductCard 
                           product={product} 
-                          onAddToCart={addToCart}
                         />
                       </div>
                     ))}
@@ -369,7 +368,6 @@ const Products = ({ addToCart }) => {
                   <div key={product.id} className="animate-stagger" style={{ animationDelay: `${index * 100}ms` }}>
                     <ProductCard 
                       product={product} 
-                      onAddToCart={addToCart}
                     />
                   </div>
                 ))}

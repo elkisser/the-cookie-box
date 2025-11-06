@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 import Cart from './Cart';
 
-const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
+const Navbar = () => {
+  const { cartItems, getTotalItems } = useCart();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
   const isAdminRoute = location.pathname === '/mrcookie';
-  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const totalItems = getTotalItems();
 
   return (
     <>
@@ -148,9 +150,6 @@ const Navbar = ({ cartItems, updateQuantity, removeFromCart }) => {
       <Cart 
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
-        items={cartItems}
-        updateQuantity={updateQuantity}
-        removeFromCart={removeFromCart}
       />
     </>
   );

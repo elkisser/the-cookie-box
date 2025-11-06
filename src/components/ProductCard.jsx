@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useCart } from '../context/CartContext';
 
-const ProductCard = ({ product, onAddToCart }) => {
+const ProductCard = ({ product }) => {
+  const { addToCart } = useCart();
   const [needsExpansion, setNeedsExpansion] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [typedRemainingText, setTypedRemainingText] = useState('');
@@ -134,6 +136,10 @@ const ProductCard = ({ product, onAddToCart }) => {
     }
   };
 
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
+
   return (
     <div 
       className={`group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 border border-gray-200 hover:border-black ${
@@ -217,7 +223,7 @@ const ProductCard = ({ product, onAddToCart }) => {
         {/* Botón premium */}
         <button
           type="button"
-          onClick={() => onAddToCart(product)}
+          onClick={handleAddToCart}
           className="w-full bg-black text-white py-4 px-6 rounded-xl font-poppins font-bold transition-all duration-300 transform hover:scale-105 active:scale-95 border-2 border-black hover:bg-gray-900 hover:shadow-2xl group/btn"
         >
           <div className="flex items-center justify-center space-x-3">

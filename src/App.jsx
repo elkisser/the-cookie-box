@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './firebase/config';
+import { CartProvider, useCart } from './context/CartContext';
+import ToastContainer from './components/ToastContainer';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -10,10 +12,15 @@ import AdminLogin from './pages/AdminLogin';
 import Logout from './pages/Logout';
 import AdminDashboard from './pages/AdminDashboard';
 
+// Wrapper component to access cart context
+const ToastContainerWrapper = () => {
+  const { toasts, removeToast } = useCart();
+  return <ToastContainer toasts={toasts} removeToast={removeToast} />;
+};
+
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -23,38 +30,6 @@ function App() {
 
     return () => unsubscribe();
   }, []);
-
-  const addToCart = (product) => {
-    setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.id === product.id);
-      if (existingItem) {
-        return prevItems.map(item =>
-          item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      } else {
-        return [...prevItems, { ...product, quantity: 1 }];
-      }
-    });
-  };
-
-  const updateQuantity = (productId, newQuantity) => {
-    if (newQuantity <= 0) {
-      removeFromCart(productId);
-      return;
-    }
-    
-    setCartItems(prevItems =>
-      prevItems.map(item =>
-        item.id === productId ? { ...item, quantity: newQuantity } : item
-      )
-    );
-  };
-
-  const removeFromCart = (productId) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
-  };
 
   const handleLogout = async () => {
     try {
@@ -78,31 +53,30 @@ function App() {
     const location = useLocation();
 
     return (
-      <div key={location.pathname} className="App animate-page">
-        <Navbar 
-          cartItems={cartItems}
-          updateQuantity={updateQuantity}
-          removeFromCart={removeFromCart}
-        />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Products addToCart={addToCart} />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route 
-            path="/mrcookie" 
-            element={
-              user ? (
-                <AdminDashboard />
-              ) : (
-                <AdminLogin onLogin={() => setUser(auth.currentUser)} />
-              )
-            } 
-          />
-          <Route path="/admin" element={<Navigate to="/mrcookie" replace />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-        <Footer />
-      </div>
+      <CartProvider>
+        <div key={location.pathname} className="App animate-page">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route 
+              path="/mrcookie" 
+              element={
+                user ? (
+                  <AdminDashboard />
+                ) : (
+                  <AdminLogin onLogin={() => setUser(auth.currentUser)} />
+                )
+              } 
+            />
+            <Route path="/admin" element={<Navigate to="/mrcookie" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+          <Footer />
+          <ToastContainerWrapper />
+        </div>
+      </CartProvider>
     );
   };
 
