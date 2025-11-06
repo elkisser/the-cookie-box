@@ -1,79 +1,67 @@
-# 🍪 The Cookie Box
+# 🍪 The Cookie Box – sitio de e‑commerce artesanal
 
-Sitio web de The Cookie Box, emprendimiento de cookies artesanales en Santa Fe Capital. Construido con React + Vite y estilado con Tailwind CSS. Incluye catálogo de productos, carrito, autenticación para panel de administración y contenido optimizado para SEO básico.
+Experiencia web para The Cookie Box (Santa Fe, Argentina) enfocada en mostrar el catálogo, tomar pedidos y facilitar el contacto por redes y WhatsApp. El sitio prioriza performance, estética y claridad del contenido en español de Argentina.
 
-## 🗂️ Tabla de contenidos
-- [⚙️ Tecnologías](#️-tecnologías)
-- [🧪 Demo local](#-demo-local)
-- [🧰 Scripts disponibles](#-scripts-disponibles)
-- [🔐 Variables de entorno (Firebase)](#-variables-de-entorno-firebase)
-- [📁 Estructura del proyecto](#-estructura-del-proyecto)
-- [📜 Licencia](#-licencia)
+## ✨ Qué incluye
+- Catálogo por categorías con filtros y buscador
+- Carrito con animaciones (apertura/cierre, overlay, panel fijo de totales)
+- Contacto directo: mensaje prearmado (portapapeles) + apertura de Instagram/WhatsApp
+- Apartado para compras por mayoristas/panaderías con CTA específico
+- Dashboard de administración con edición, alta/baja y previsualización
+- Subida de imágenes con conversión automática a WebP (calidad alta, sin downscale)
+- Efectos visuales (hero con “lluvia” de cookies, tipografías personalizadas, micro‑interacciones)
 
-## ⚙️ Tecnologías
-- React 18 + Vite 5
-- React Router v6
-- Tailwind CSS 3
-- Firebase (Auth, Firestore, Storage)
-- ESLint (React + Hooks)
+## 🧱 Stack y librerías
+- **Frontend**: React 18 + Vite 5
+- **Ruteo**: React Router v6
+- **Estilos**: Tailwind CSS 3 (utilidades + clases personalizadas)
+- **Estado de carrito y toasts**: Context API (`CartContext`) + contenedor de toasts propio
+- **Animaciones**: transiciones CSS + Framer Motion para apariciones sutiles
+- **Backend as a Service**: Firebase (Auth, Firestore, Storage)
+- **Calidad**: ESLint (reglas para React + Hooks)
 
-## 🧪 Demo local
-Requisitos: Node.js 18+ y npm.
+## 🧭 Arquitectura (alto nivel)
+- `src/pages/*`: vistas principales (`Home`, `Products`, `AdminDashboard`, etc.)
+- `src/components/*`: UI reusables (Navbar, Footer, Cart, ProductCard, etc.)
+- `src/context/CartContext`: estado global del carrito (items, add/update/remove, toasts)
+- `src/firebase/*`: configuración del SDK de Firebase
+- `index.html`: base del documento; `main.jsx` monta la app
 
-```bash
-npm install
-npm run dev
-```
+## 🛒 Carrito y flujo de contacto
+- Los botones de acciones del carrito y cards usan `type="button"` y manejadores que previenen cualquier submit/navegación accidental (comportamiento robusto incluso dentro de contenedores inesperados).
+- Envío por Instagram: no se pueden abrir DMs con texto prellenado por limitaciones de Instagram. Se implementó un flujo “copiar y abrir”: se copia un mensaje con el pedido y se abre el perfil `@thecookiebox.sf` para pegarlo manualmente. En el carrito se agrega un modal previo que guía al usuario.
+- Envío por WhatsApp: se arma un `wa.me` con el texto preformateado (cuando corresponde).
 
-La app quedará disponible en `http://localhost:5173` (por defecto de Vite).
+## 🖼️ Imágenes y performance
+- Conversión automática del archivo subido a **WebP** en el navegador (sin cambiar dimensiones). Calidad por defecto: **1.00** (máxima) para preservar el aspecto; el peso suele bajar respecto a JPG/PNG.
+- Subida a Firebase Storage con `contentType: image/webp` para servir correctamente.
+- Se contemplan efectos y fondos animados con cuidado por `prefers-reduced-motion`.
 
-## 🧰 Scripts disponibles
-- `npm run dev`: Levanta el servidor de desarrollo con HMR.
-- `npm run build`: Genera la build de producción en `dist/`.
-- `npm run preview`: Sirve localmente la build de producción.
-- `npm run lint`: Ejecuta ESLint sobre el proyecto.
+## 🧩 UX y lenguaje
+- Todo el contenido está en **español de Argentina** (voseo, “Seguinos”, etc.)
+- Se evitó un tono de marketing excesivo: mensajes concisos y claros sobre producto y proceso.
+- Modal previo a Instagram que explica “copiamos el texto, abrí Instagram y pegalo”.
 
-## 🔐 Variables de entorno (Firebase)
-Crea un archivo `.env` en la raíz con tus credenciales de Firebase (o `.env.local` si preferís mantenerlo fuera del control de versiones):
+## 🔐 Seguridad y privacidad
+- Dashboard protegido con Firebase Auth (rutas privadas).
+- Operaciones CRUD a Firestore bajo credenciales del proyecto.
+- Subidas a Storage con nombres únicos (`timestamp_nombre.webp`).
 
-```bash
-VITE_FIREBASE_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-VITE_FIREBASE_AUTH_DOMAIN=xxxxxxxxxxxxxxxx.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=xxxxxxxxxxxxxxxx
-VITE_FIREBASE_STORAGE_BUCKET=xxxxxxxxxxxxxxxx.appspot.com
-VITE_FIREBASE_MESSAGING_SENDER_ID=xxxxxxxxxxxx
-VITE_FIREBASE_APP_ID=1:xxxxxxxxxxxx:web:xxxxxxxxxxxxxxxx
-```
+## ♿ Accesibilidad y responsividad
+- Layouts fluidos, breakpoints para mobile/desktop.
+- Contraste y tamaños de toque razonables en CTAs.
+- Respeto por `prefers-reduced-motion` para animaciones.
 
-Estas variables son consumidas en `src/firebase/config.js`.
+## 🚀 Rendimiento
+- Imágenes WebP, animaciones eficientes, CSS utilitario, Vite para builds rápidas.
+- Carga progresiva de vistas y animaciones sutiles para mantener FPS estable.
 
-## 📁 Estructura del proyecto
-```text
-the-cookie-box/
-├─ public/
-│  ├─ cookiebox.svg            # Favicon/icono del sitio
-├─ src/
-│  ├─ assets/
-│  ├─ components/
-│  │  ├─ Navbar.jsx
-│  │  └─ Footer.jsx            # Footer reutilizable
-│  ├─ firebase/
-│  │  └─ config.js             # Inicialización de Firebase
-│  ├─ hooks/
-│  ├─ pages/
-│  │  ├─ Home.jsx
-│  │  ├─ Products.jsx
-│  │  ├─ AdminLogin.jsx
-│  │  └─ AdminDashboard.jsx
-│  ├─ services/
-│  ├─ App.jsx                  # Rutas y layout
-│  └─ main.jsx
-├─ index.html                  # Metadatos, título y favicon
-├─ tailwind.config.js          # Config Tailwind (fuentes Praise y Poppins)
-├─ postcss.config.cjs
-├─ package.json
-└─ README.md
-```
+## 🔭 Roadmap sugerido
+- Selector de sucursal/entrega y costos dinámicos.
+- Galería de producto con zoom y miniaturas.
+- Métricas (Analytics) y eventos de conversión.
+- Soporte multimoneda / multiregión (si aplica).
+- Job de conversión server‑side como alternativa al cliente.
 
 ## 📜 Licencia
-Este proyecto es de uso privado para The Cookie Box. Todos los derechos reservados.
+Proyecto privado para The Cookie Box. Todos los derechos reservados.
