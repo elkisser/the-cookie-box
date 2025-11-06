@@ -12,7 +12,13 @@ export const useToast = () => {
       duration
     };
 
-    setToasts(prev => [...prev, newToast]);
+    setToasts(prev => {
+      // Si ya hay 2 toasts, elimina el más antiguo
+      if (prev.length >= 2) {
+        return [...prev.slice(1), newToast];
+      }
+      return [...prev, newToast];
+    });
   }, []);
 
   const removeToast = useCallback((id) => {

@@ -12,7 +12,10 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    const savedCart = localStorage.getItem('cart');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
   const { toasts, showToast, removeToast } = useToast();
 
   const addToCart = useCallback((product) => {
@@ -70,6 +73,11 @@ export const CartProvider = ({ children }) => {
 
   const getTotalItems = useCallback(() => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
+  }, [cartItems]);
+
+  // Efecto para actualizar el localStorage cuando cambia el carrito
+  React.useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
   const value = {

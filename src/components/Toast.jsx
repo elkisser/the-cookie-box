@@ -15,8 +15,8 @@ const Toast = ({ message, type = 'success', duration = 2000, onClose }) => {
   }, [duration, onClose]);
 
   const getToastStyles = () => {
-    const baseStyles = 'relative p-3 sm:p-4 rounded-lg sm:rounded-xl shadow-lg transform transition-all duration-300 ease-out font-poppins w-[90vw] sm:w-auto sm:max-w-sm md:max-w-md mx-2 sm:mx-0';
-    const animationClass = isExiting ? 'animate-slide-out' : 'animate-slide-in';
+    const baseStyles = 'relative p-3 sm:p-4 rounded-lg sm:rounded-xl shadow-lg transform transition-all duration-500 ease-out font-poppins w-[90vw] sm:w-auto sm:max-w-sm md:max-w-md';
+    const animationClass = isExiting ? 'opacity-0 translate-y-full' : 'opacity-100 translate-y-0';
     
     switch (type) {
       case 'success':
