@@ -22,20 +22,20 @@ const Home = () => {
           {(() => {
             // Lista de archivos en public/cookies (generada desde el folder del proyecto)
             const cookieFileNames = [
-              "cookie_render_1.png",
-              "cookie_render_2.png",
-              "cookie_render_3.png",
-              "cookie_render_4.png",
-              "cookie_render_5.png",
-              "cookie_render_6.png",
-              "cookie_render_7.png",
-              "cookie_render_8.png",
-              "cookie_render_9.png",
-              "cookie_render_10.png",
-              "cookie_render_11.png",
-              "cookie_render_12.png",
-              "cookie_render_13.png",
-              "cookie_render_14.png",
+              "cookie_render_1.webp",
+              "cookie_render_2.webp",
+              "cookie_render_3.webp",
+              "cookie_render_4.webp",
+              "cookie_render_5.webp",
+              "cookie_render_6.webp",
+              "cookie_render_7.webp",
+              "cookie_render_8.webp",
+              "cookie_render_9.webp",
+              "cookie_render_10.webp",
+              "cookie_render_11.webp",
+              "cookie_render_12.webp",
+              "cookie_render_13.webp",
+              "cookie_render_14.webp",
             ];
 
             const assetPath = (name) => `/cookies_render/${encodeURIComponent(name)}`;
@@ -160,7 +160,7 @@ const Home = () => {
                 {/* Cookie trasera izquierda */}
                 <div className="relative -mr-8 -mb-4 transform rotate-6 hover:scale-105 transition-transform duration-300">
                   <img 
-                    src="/cookies/DULCE DE LECHE .jpg"
+                    src="/cookies/DULCE DE LECHE .webp"
                     alt="Cookie Dulce de Leche"
                     className="w-40 h-40 lg:w-44 lg:h-44 object-cover rounded-full shadow-lg remove-bg"
                   />
@@ -169,7 +169,7 @@ const Home = () => {
                 {/* Cookie central base */}
                 <div className="relative z-10 transform -rotate-3 hover:scale-105 transition-transform duration-300">
                   <img 
-                    src="/cookies/NUTELLA.jpg"
+                    src="/cookies/NUTELLA.webp"
                     alt="Cookie Nutella"
                     className="w-44 h-44 lg:w-48 lg:h-48 object-cover rounded-full shadow-lg remove-bg"
                   />
@@ -178,7 +178,7 @@ const Home = () => {
                 {/* Cookie trasera derecha */}
                 <div className="relative -ml-8 -mb-4 transform -rotate-8 hover:scale-105 transition-transform duration-300">
                   <img 
-                    src="/cookies/OREO .jpg"
+                    src="/cookies/OREO .webp"
                     alt="Cookie Oreo"
                     className="w-40 h-40 lg:w-44 lg:h-44 object-cover rounded-full shadow-lg remove-bg"
                   />
@@ -190,7 +190,7 @@ const Home = () => {
                 {/* Cookie izquierda segunda capa */}
                 <div className="relative transform rotate-12 hover:scale-105 transition-transform duration-300">
                   <img 
-                    src="/cookies/FRUTOS ROJOS.jpg"
+                    src="/cookies/FRUTOS ROJOS.webp"
                     alt="Cookie Frutos Rojos"
                     className="w-36 h-36 lg:w-40 lg:h-40 object-cover rounded-full shadow-lg remove-bg"
                   />
@@ -199,7 +199,7 @@ const Home = () => {
                 {/* Cookie derecha segunda capa */}
                 <div className="relative transform -rotate-10 hover:scale-105 transition-transform duration-300">
                   <img 
-                    src="/cookies/KÍNDER.jpg"
+                    src="/cookies/KÍNDER.webp"
                     alt="Cookie Kinder"
                     className="w-36 h-36 lg:w-40 lg:h-40 object-cover rounded-full shadow-lg remove-bg"
                   />
@@ -209,7 +209,7 @@ const Home = () => {
               {/* Tercera capa - cookie superior */}
               <div className="absolute z-40 top-4 transform rotate-5 hover:scale-110 transition-transform duration-300">
                 <img 
-                  src="/cookies/MILKA OREO.jpg"
+                  src="/cookies/MILKA OREO.webp"
                   alt="Cookie Milka Oreo"
                   className="w-32 h-32 lg:w-36 lg:h-36 object-cover rounded-full shadow-lg remove-bg"
                 />
@@ -278,20 +278,20 @@ const Home = () => {
             <div className="cookie-bg remove-bg" aria-hidden="true">
               {(() => {
                 const cookieFileNames = [
-                  "BLOCK.jpg",
-                  "CHOCO NUTELLA.jpg",
-                  "COCO CON DULCE .jpg",
-                  "COOKIE MANTECOL.jpg",
-                  "DUBAI.jpg",
-                  "DULCE DE LECHE .jpg",
-                  "FRANUÍ .jpg",
-                  "FRUTOS ROJOS.jpg",
-                  "KÍNDER.jpg",
-                  "MANTECOL.jpg",
-                  "MILKA OREO.jpg",
-                  "NUTELLA.jpg",
-                  "OREO .jpg",
-                  "ROCKLETS .jpg",
+                  "BLOCK.webp",
+                  "CHOCO NUTELLA.webp",
+                  "COCO CON DULCE .webp",
+                  "COOKIE MANTECOL.webp",
+                  "DUBAI.webp",
+                  "DULCE DE LECHE .webp",
+                  "FRANUÍ .webp",
+                  "FRUTOS ROJOS.webp",
+                  "KÍNDER.webp",
+                  "MANTECOL.webp",
+                  "MILKA OREO.webp",
+                  "NUTELLA.webp",
+                  "OREO .webp",
+                  "ROCKLETS .webp",
                 ];
 
                 const assetPath = (name) => `/cookies/${encodeURIComponent(name)}`;
@@ -505,20 +505,20 @@ Me podrían enviar información sobre:
 // Small rotator component that cycles through every image in public/cookies
 function ImageRotator() {
   const cookieFileNames = [
-    "BLOCK.jpg",
-    "CHOCO NUTELLA.jpg",
-    "COCO CON DULCE .jpg",
-    "COOKIE MANTECOL.jpg",
-    "DUBAI.jpg",
-    "DULCE DE LECHE .jpg",
-    "FRANUÍ .jpg",
-    "FRUTOS ROJOS.jpg",
-    "KÍNDER.jpg",
-    "MANTECOL.jpg",
-    "MILKA OREO.jpg",
-    "NUTELLA.jpg",
-    "OREO .jpg",
-    "ROCKLETS .jpg",
+    "BLOCK.webp",
+    "CHOCO NUTELLA.webp",
+    "COCO CON DULCE .webp",
+    "COOKIE MANTECOL.webp",
+    "DUBAI.webp",
+    "DULCE DE LECHE .webp",
+    "FRANUÍ .webp",
+    "FRUTOS ROJOS.webp",
+    "KÍNDER.webp",
+    "MANTECOL.webp",
+    "MILKA OREO.webp",
+    "NUTELLA.webp",
+    "OREO .webp",
+    "ROCKLETS .webp",
   ];
 
   const assetPath = (name) => `/cookies/${encodeURIComponent(name)}`;

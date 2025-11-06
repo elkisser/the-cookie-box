@@ -21,6 +21,34 @@ const AdminDashboard = () => {
     isActive: true
   });
 
+  // Convierte a WebP manteniendo dimensiones originales (sin downscale) y con calidad alta
+  const convertFileToWebP = async (file, quality = 1.00) => {
+    try {
+      const bitmap = await createImageBitmap(file);
+      const targetW = bitmap.width;
+      const targetH = bitmap.height;
+      const canvas = document.createElement('canvas');
+      canvas.width = targetW;
+      canvas.height = targetH;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(bitmap, 0, 0, targetW, targetH);
+
+      const webpBlob = await new Promise((resolve, reject) => {
+        canvas.toBlob(
+          (blob) => (blob ? resolve(blob) : reject(new Error('toBlob returned null'))),
+          'image/webp',
+          quality
+        );
+      });
+
+      const baseName = file.name.replace(/\.[^.]+$/, '') || 'image';
+      return new File([webpBlob], `${baseName}.webp`, { type: 'image/webp' });
+    } catch (err) {
+      // Fallback to original file if conversion fails
+      return file;
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -75,8 +103,10 @@ const AdminDashboard = () => {
       let imageUrl = editingProduct?.imageUrl || '';
       
       if (formData.image) {
-        const imageRef = ref(storage, `products/${Date.now()}_${formData.image.name}`);
-        const snapshot = await uploadBytes(imageRef, formData.image);
+        const webpFile = await convertFileToWebP(formData.image, 0.98);
+        const fileName = `${Date.now()}_${webpFile.name}`;
+        const imageRef = ref(storage, `products/${fileName}`);
+        const snapshot = await uploadBytes(imageRef, webpFile, { contentType: webpFile.type || 'image/webp' });
         imageUrl = await getDownloadURL(snapshot.ref);
       }
 
