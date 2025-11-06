@@ -100,7 +100,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="fade-in">
-              <h2 className="font-praise text-5xl lg:text-6xl text-black mb-8">Quiénes Somos</h2>
+              <h2 className="font-praise text-5xl lg:text-6xl text-black mb-8">¿Quiénes Somos?</h2>
               <div className="space-y-6">
                 <p className="font-poppins text-gray-700 text-lg leading-relaxed">
                   En <span className="font-semibold text-black">The Cookie Box</span> hacemos cookies artesanales en Santa Fe Capital. 
