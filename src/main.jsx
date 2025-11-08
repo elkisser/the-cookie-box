@@ -12,6 +12,12 @@ createRoot(document.getElementById('root')).render(
 // Global helpers to prevent accidental full-page reloads caused by form submits
 // and buttons without explicit type="button".
 if (typeof window !== 'undefined') {
+  // Desactivar la restauración automática de scroll del navegador
+  // Esto permite que React Router maneje el scroll manualmente
+  if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual';
+  }
+
   // Prevent any form submission from performing a full page reload when JS is active.
   // We only call preventDefault if it hasn't been prevented yet.
   window.addEventListener('submit', (e) => {

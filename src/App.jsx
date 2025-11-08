@@ -4,6 +4,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './firebase/config';
 import { CartProvider, useCart } from './context/CartContext';
 import ToastContainer from './components/ToastContainer';
+import ScrollToTop from './components/ScrollToTop';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -54,6 +55,7 @@ function App() {
 
     return (
       <CartProvider>
+        <ScrollToTop />
         <div key={location.pathname} className="App animate-page">
           <Navbar />
           <Routes>
